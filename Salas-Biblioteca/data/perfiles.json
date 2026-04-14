@@ -1,0 +1,34 @@
+{
+  "reglasClasificacion": {
+    "estudiante": "@alumnos.ucn.cl",
+    "funcionario": "@funcionario.ucn.cl"
+  },
+  "estudiantes": [
+    {
+      "id": "E001",
+      "nombre": "Camila Rojas",
+      "correo": "camila.rojas@alumnos.ucn.cl",
+      "tipo": "estudiante"
+    },
+    {
+      "id": "E002",
+      "nombre": "Matias Araya",
+      "correo": "matias.araya@alumnos.ucn.cl",
+      "tipo": "estudiante"
+    }
+  ],
+  "funcionarios": [
+    {
+      "id": "F001",
+      "nombre": "Paula Muñoz",
+      "correo": "paula.munoz@funcionario.ucn.cl",
+      "tipo": "funcionario"
+    },
+    {
+      "id": "F002",
+      "nombre": "Ricardo Diaz",
+      "correo": "ricardo.diaz@funcionario.ucn.cl",
+      "tipo": "funcionario"
+    }
+  ]
+}

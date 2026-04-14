@@ -24,10 +24,10 @@
                 <h2 class="text-xl font-bold text-slate-800 mb-1">Iniciar Sesion</h2>
                 <p class="text-sm text-slate-500 mb-6">Ingresa tus credenciales para continuar.</p>
 
-                <form action="characteristics.html" method="POST" class="space-y-5">
+                <form id="loginForm" action="characteristics.html" method="POST" class="space-y-5">
                     <div>
-                        <label for="username" class="text-slate-600 font-semibold text-xs uppercase tracking-wider">Usuario</label>
-                        <input type="text" id="username" name="username" class="w-full mt-2 px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400 transition" placeholder="Ej: estudiante.ucn" required>
+                        <label for="email" class="text-slate-600 font-semibold text-xs uppercase tracking-wider">Correo Institucional</label>
+                        <input type="email" id="email" name="email" class="w-full mt-2 px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400 transition" placeholder="ejemplo@alumnos.ucn.cl" required>
                     </div>
 
                     <div>
@@ -35,10 +35,72 @@
                         <input type="password" id="password" name="password" class="w-full mt-2 px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400 transition" placeholder="********" required>
                     </div>
 
+                    <p id="loginMessage" class="text-sm hidden"></p>
+
                     <button type="submit" class="btn-confirmar w-full">Ingresar</button>
                 </form>
             </article>
         </section>
     </main>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const message = document.getElementById('loginMessage');
+
+        function getTipoPorDominio(correo, reglas) {
+            const correoNormalizado = correo.toLowerCase();
+            if (correoNormalizado.endsWith(reglas.estudiante)) {
+                return 'estudiante';
+            }
+            if (correoNormalizado.endsWith(reglas.funcionario)) {
+                return 'funcionario';
+            }
+            return null;
+        }
+
+        function mostrarMensaje(texto, esError) {
+            message.textContent = texto;
+            message.classList.remove('hidden', 'text-red-600', 'text-green-700');
+            message.classList.add(esError ? 'text-red-600' : 'text-green-700');
+        }
+
+        loginForm.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const correo = emailInput.value.trim().toLowerCase();
+
+            try {
+                const respuesta = await fetch('data/perfiles.json');
+                if (!respuesta.ok) {
+                    throw new Error('No se pudo cargar la base de perfiles.');
+                }
+
+                const data = await respuesta.json();
+                const tipo = getTipoPorDominio(correo, data.reglasClasificacion);
+
+                if (!tipo) {
+                    mostrarMensaje('El correo debe terminar en @alumnos.ucn.cl o @funcionario.ucn.cl.', true);
+                    return;
+                }
+
+                const lista = tipo === 'estudiante' ? data.estudiantes : data.funcionarios;
+                const perfil = lista.find(function (usuario) {
+                    return usuario.correo.toLowerCase() === correo;
+                });
+
+                if (!perfil) {
+                    mostrarMensaje('Correo valido por dominio, pero no registrado en perfiles.', true);
+                    return;
+                }
+
+                localStorage.setItem('perfilActivo', JSON.stringify(perfil));
+                mostrarMensaje('Acceso correcto. Redirigiendo...', false);
+                window.location.href = 'characteristics.html';
+            } catch (error) {
+                mostrarMensaje('Error al validar usuario. Intenta nuevamente.', true);
+            }
+        });
+    </script>
 </body>
 </html>
