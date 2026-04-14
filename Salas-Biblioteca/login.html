@@ -1,1 +1,44 @@
-//TODO login.html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Salas Biblioteca</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style type="text/tailwindcss">
+        @import url('css/Styles.css');
+    </style>
+</head>
+<body class="bg-slate-100 p-2 md:p-6 min-h-screen font-sans">
+    <main class="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl overflow-hidden grid grid-cols-1">
+        <header class="bg-blue-900 p-6 text-white flex flex-wrap justify-between items-center gap-4">
+            <hgroup>
+                <h1 class="text-2xl font-bold">Salas Biblioteca UCN</h1>
+                <p class="text-xs opacity-75 uppercase tracking-wider font-semibold">Acceso al sistema de reservas</p>
+            </hgroup>
+        </header>
+
+        <section class="p-6 md:p-10 bg-slate-50">
+            <article class="max-w-md mx-auto bg-white border border-slate-200 rounded-xl shadow-md p-6 md:p-8">
+                <h2 class="text-xl font-bold text-slate-800 mb-1">Iniciar Sesion</h2>
+                <p class="text-sm text-slate-500 mb-6">Ingresa tus credenciales para continuar.</p>
+
+                <form action="characteristics.html" method="POST" class="space-y-5">
+                    <div>
+                        <label for="username" class="text-slate-600 font-semibold text-xs uppercase tracking-wider">Usuario</label>
+                        <input type="text" id="username" name="username" class="w-full mt-2 px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400 transition" placeholder="Ej: estudiante.ucn" required>
+                    </div>
+
+                    <div>
+                        <label for="password" class="text-slate-600 font-semibold text-xs uppercase tracking-wider">Contrasena</label>
+                        <input type="password" id="password" name="password" class="w-full mt-2 px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400 transition" placeholder="********" required>
+                    </div>
+
+                    <button type="submit" class="btn-confirmar w-full">Ingresar</button>
+                </form>
+            </article>
+        </section>
+    </main>
+</body>
+</html>
