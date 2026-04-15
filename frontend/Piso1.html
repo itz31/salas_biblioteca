@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piso1</title>
+</head>
+<body>
+  <h1>Piso1</h1>
+  <p id="tipoUsuario">Cargando tipo de usuario...</p>
+
+  <p><a href="pisoNeg1.html">Ir a pisoNeg1</a></p>
+  <p><a href="characteristics.html">Ir a characteristics</a></p>
+  <p><button id="cerrarSesion" type="button">Cerrar sesion</button></p>
+
+  <script>
+    // Inicializa la vista Piso1: lee sesion, muestra tipo de usuario y prepara acciones.
+    (function () {
+      var perfilGuardado = localStorage.getItem('perfilActivo');
+      var mensaje = 'No se detecto sesion activa.';
+
+      if (perfilGuardado) {
+        try {
+          var perfil = JSON.parse(perfilGuardado);
+          if (perfil && perfil.tipo) {
+            var tipoVisible = perfil.tipo === 'estudiante' ? 'alumno' : perfil.tipo;
+            mensaje = 'Eres ' + tipoVisible + '.';
+          }
+        } catch (error) {
+          mensaje = 'No se pudo leer el tipo de usuario.';
+        }
+      }
+
+      document.getElementById('tipoUsuario').textContent = mensaje;
+
+      // Cierra sesion local y vuelve al login.
+      document.getElementById('cerrarSesion').addEventListener('click', function () {
+        localStorage.removeItem('perfilActivo');
+        window.location.href = 'login.html';
+      });
+    })();
+  </script>
+</body>
+</html>

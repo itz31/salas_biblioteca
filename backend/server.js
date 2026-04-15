@@ -11,15 +11,27 @@ const dataPath = path.join(backendDir, 'data', 'perfiles.json');
 app.use(express.json());
 app.use(express.static(frontendDir));
 
+/**
+ * Lee el archivo de perfiles y lo devuelve como objeto JS.
+ * Reutilizar cuando necesites el estado actual de usuarios.
+ */
 function leerPerfiles() {
   const contenido = fs.readFileSync(dataPath, 'utf8');
   return JSON.parse(contenido);
 }
 
+/**
+ * Guarda en disco el objeto completo de perfiles.
+ * Reutilizar despues de crear o modificar usuarios.
+ */
 function guardarPerfiles(data) {
   fs.writeFileSync(dataPath, JSON.stringify(data, null, 2), 'utf8');
 }
 
+/**
+ * Detecta si un correo pertenece a estudiante o funcionario segun el dominio.
+ * Devuelve 'estudiante', 'funcionario' o null si no coincide.
+ */
 function detectarTipo(correo, reglas) {
   const correoNormalizado = correo.toLowerCase();
 
@@ -34,10 +46,18 @@ function detectarTipo(correo, reglas) {
   return null;
 }
 
+/**
+ * Retorna la lista correcta segun el tipo de usuario.
+ * Si tipo es 'estudiante' devuelve data.estudiantes, si no data.funcionarios.
+ */
 function obtenerListaPorTipo(data, tipo) {
   return tipo === 'estudiante' ? data.estudiantes : data.funcionarios;
 }
 
+/**
+ * Calcula el siguiente ID disponible usando un prefijo (E o F).
+ * Ejemplo: E004 -> E005.
+ */
 function obtenerSiguienteId(lista, prefijo) {
   const maxNumero = lista.reduce((maximo, perfil) => {
     const numero = Number.parseInt(String(perfil.id || '').replace(/^[^0-9]*/, ''), 10);
@@ -47,10 +67,17 @@ function obtenerSiguienteId(lista, prefijo) {
   return `${prefijo}${String(maxNumero + 1).padStart(3, '0')}`;
 }
 
+/**
+ * Ruta raiz: redirige al login del frontend.
+ */
 app.get('/', function (_request, response) {
   response.redirect('/login.html');
 });
 
+/**
+ * Endpoint de login:
+ * valida datos, busca al usuario y devuelve el perfil sin password.
+ */
 app.post('/api/login', function (request, response) {
   const { correo, password } = request.body || {};
 
@@ -66,6 +93,7 @@ app.post('/api/login', function (request, response) {
   }
 
   const lista = obtenerListaPorTipo(data, tipo);
+  // Busca coincidencia exacta de correo+password en el grupo correspondiente.
   const perfil = lista.find(function (usuario) {
     return usuario.correo.toLowerCase() === correo.toLowerCase() && usuario.password === password;
   });
@@ -78,6 +106,10 @@ app.post('/api/login', function (request, response) {
   return response.json({ perfil: perfilSinPassword });
 });
 
+/**
+ * Endpoint de registro:
+ * crea un usuario nuevo en la lista correcta y persiste cambios en JSON.
+ */
 app.post('/api/register', function (request, response) {
   const { nombre, correo, password } = request.body || {};
 
@@ -94,6 +126,7 @@ app.post('/api/register', function (request, response) {
 
   const lista = obtenerListaPorTipo(data, tipo);
   const correoNormalizado = correo.toLowerCase();
+  // Evita registrar correos duplicados dentro del mismo tipo de usuario.
   const existe = lista.some(function (usuario) {
     return usuario.correo.toLowerCase() === correoNormalizado;
   });
@@ -118,6 +151,9 @@ app.post('/api/register', function (request, response) {
   return response.status(201).json({ perfil: perfilSinPassword });
 });
 
+/**
+ * Inicia el servidor HTTP en el puerto configurado.
+ */
 app.listen(port, function () {
   console.log(`Servidor listo en http://localhost:${port}`);
 });
