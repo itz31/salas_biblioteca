@@ -24,6 +24,20 @@ Si ambos comandos muestran version, ya puedes seguir con la ejecucion del proyec
 
 ## Como ejecutar
 
+Opcion rapida en Windows:
+
+- Haz doble clic en `iniciar.bat` desde la raiz del proyecto.
+- Se abre el backend y luego el navegador en `frontend/index.html`.
+
+Opcion rapida en Linux/macOS:
+
+```bash
+chmod +x iniciar.sh
+./iniciar.sh
+```
+
+Esto inicia el backend y abre `http://localhost:3000/index.html` en el navegador.
+
 En carpeta `backend`:
 
 ```bash
@@ -45,6 +59,8 @@ En carpeta `frontend`:
 cd c:\\ruta a tu carpeta\salas_biblioteca-main\frontend
 npx serve .
 ```
+
+Si abres el proyecto desde el navegador, la entrada inicial tambien puede ser `frontend/index.html`, que redirige al login.
 
 ## Nota
 
