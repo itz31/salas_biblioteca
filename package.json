@@ -1,0 +1,13 @@
+{
+  "name": "salas-biblioteca",
+  "version": "1.0.0",
+  "description": "Sistema de salas de biblioteca con login y registro por dominio institucional.",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node backend/server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

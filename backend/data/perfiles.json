@@ -8,13 +8,22 @@
       "id": "E001",
       "nombre": "Camila Rojas",
       "correo": "camila.rojas@alumnos.ucn.cl",
-      "tipo": "estudiante"
+      "tipo": "estudiante",
+      "password": "Camila123"
     },
     {
       "id": "E002",
       "nombre": "Matias Araya",
       "correo": "matias.araya@alumnos.ucn.cl",
-      "tipo": "estudiante"
+      "tipo": "estudiante",
+      "password": "Matias123"
+    },
+    {
+      "id": "E003",
+      "nombre": "Prueba Copilot",
+      "correo": "prueba.copilot@alumnos.ucn.cl",
+      "tipo": "estudiante",
+      "password": "Clave123"
     }
   ],
   "funcionarios": [
@@ -22,13 +31,15 @@
       "id": "F001",
       "nombre": "Paula Muñoz",
       "correo": "paula.munoz@funcionario.ucn.cl",
-      "tipo": "funcionario"
+      "tipo": "funcionario",
+      "password": "Paula123"
     },
     {
       "id": "F002",
       "nombre": "Ricardo Diaz",
       "correo": "ricardo.diaz@funcionario.ucn.cl",
-      "tipo": "funcionario"
+      "tipo": "funcionario",
+      "password": "Ricardo123"
     }
   ]
 }

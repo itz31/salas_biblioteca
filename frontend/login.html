@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Salas Biblioteca</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style type="text/tailwindcss">
+        @import url('css/Styles.css');
+    </style>
+</head>
+<body class="bg-slate-100 p-2 md:p-6 min-h-screen font-sans">
+    <main class="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl overflow-hidden grid grid-cols-1">
+        <header class="bg-blue-900 p-6 text-white flex flex-wrap justify-between items-center gap-4">
+            <hgroup>
+                <h1 class="text-2xl font-bold">Salas Biblioteca UCN</h1>
+                <p class="text-xs opacity-75 uppercase tracking-wider font-semibold">Acceso al sistema de reservas</p>
+            </hgroup>
+        </header>
+
+        <section class="p-6 md:p-10 bg-slate-50">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <article class="bg-white border border-slate-200 rounded-xl shadow-md p-6 md:p-8">
+                    <h2 class="text-xl font-bold text-slate-800 mb-1">Iniciar Sesion</h2>
+                    <p class="text-sm text-slate-500 mb-6">Ingresa tu correo institucional y contraseña.</p>
+
+                    <form id="loginForm" class="space-y-5">
+                        <div>
+                            <label for="loginEmail" class="text-slate-600 font-semibold text-xs uppercase tracking-wider">Correo Institucional</label>
+                            <input type="email" id="loginEmail" name="email" class="w-full mt-2 px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400 transition" placeholder="ejemplo@alumnos.ucn.cl" required>
+                        </div>
+
+                        <div>
+                            <label for="loginPassword" class="text-slate-600 font-semibold text-xs uppercase tracking-wider">Contrasena</label>
+                            <input type="password" id="loginPassword" name="password" class="w-full mt-2 px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400 transition" placeholder="********" required>
+                        </div>
+
+                        <p id="loginMessage" class="text-sm hidden"></p>
+
+                        <button type="submit" class="btn-confirmar w-full">Ingresar</button>
+                    </form>
+                </article>
+
+                <article class="bg-white border border-slate-200 rounded-xl shadow-md p-6 md:p-8">
+                    <h2 class="text-xl font-bold text-slate-800 mb-1">Crear Usuario</h2>
+                    <p class="text-sm text-slate-500 mb-6">Registra un correo institucional nuevo con su contraseña.</p>
+
+                    <form id="registerForm" class="space-y-5">
+                        <div>
+                            <label for="nombre" class="text-slate-600 font-semibold text-xs uppercase tracking-wider">Nombre</label>
+                            <input type="text" id="nombre" name="nombre" class="w-full mt-2 px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400 transition" placeholder="Nombre y apellido" required>
+                        </div>
+
+                        <div>
+                            <label for="registerEmail" class="text-slate-600 font-semibold text-xs uppercase tracking-wider">Correo Institucional</label>
+                            <input type="email" id="registerEmail" name="email" class="w-full mt-2 px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400 transition" placeholder="nuevo@alumnos.ucn.cl" required>
+                        </div>
+
+                        <div>
+                            <label for="registerPassword" class="text-slate-600 font-semibold text-xs uppercase tracking-wider">Contrasena</label>
+                            <input type="password" id="registerPassword" name="password" class="w-full mt-2 px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400 transition" placeholder="********" required>
+                        </div>
+
+                        <p id="registerMessage" class="text-sm hidden"></p>
+
+                        <button type="submit" class="btn-confirmar w-full">Crear usuario</button>
+                    </form>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const loginMessage = document.getElementById('loginMessage');
+        const registerMessage = document.getElementById('registerMessage');
+        const apiBase = '/api';
+
+        function mostrarMensaje(elemento, texto, esError) {
+            elemento.textContent = texto;
+            elemento.classList.remove('hidden', 'text-red-600', 'text-green-700');
+            elemento.classList.add(esError ? 'text-red-600' : 'text-green-700');
+        }
+
+        loginForm.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const correo = document.getElementById('loginEmail').value.trim().toLowerCase();
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                const respuesta = await fetch(`${apiBase}/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ correo, password })
+                });
+
+                const data = await respuesta.json();
+
+                if (!respuesta.ok) {
+                    mostrarMensaje(loginMessage, data.mensaje || 'No fue posible iniciar sesión.', true);
+                    return;
+                }
+
+                localStorage.setItem('perfilActivo', JSON.stringify(data.perfil));
+                mostrarMensaje(loginMessage, 'Acceso correcto. Redirigiendo...', false);
+                window.location.href = 'characteristics.html';
+            } catch (error) {
+                mostrarMensaje(loginMessage, 'No se pudo conectar con el servidor. Inicia el backend.', true);
+            }
+        });
+
+        registerForm.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const nombre = document.getElementById('nombre').value.trim();
+            const correo = document.getElementById('registerEmail').value.trim().toLowerCase();
+            const password = document.getElementById('registerPassword').value;
+
+            try {
+                const respuesta = await fetch(`${apiBase}/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ nombre, correo, password })
+                });
+
+                const data = await respuesta.json();
+
+                if (!respuesta.ok) {
+                    mostrarMensaje(registerMessage, data.mensaje || 'No fue posible crear el usuario.', true);
+                    return;
+                }
+
+                mostrarMensaje(registerMessage, `Usuario creado como ${data.perfil.tipo}. Ya puedes iniciar sesión.`, false);
+                registerForm.reset();
+            } catch (error) {
+                mostrarMensaje(registerMessage, 'No se pudo conectar con el servidor. Inicia el backend.', true);
+            }
+        });
+    </script>
+</body>
+</html>
