@@ -9,19 +9,21 @@ El proyecto esta separado en `frontend/` y `backend/`.
 En carpeta `backend`:
 
 ```bash
+cd c:\\ruta a tu carpeta\salas_biblioteca-main\backend
 npm install
-node app.js
+node server.js
 ```
 
 En carpeta `frontend`:
 
 ```bash
+cd c:\\ruta a tu carpeta\salas_biblioteca-main\frontend
 npx serve .
 ```
 
 ## Nota
 
-Si el archivo principal del backend no se llama `app.js`, reemplaza ese nombre por el archivo real del servidor. En esta version del proyecto el backend vive dentro de la carpeta `backend/` y expone la API para el login y el registro.
+El archivo principal del backend en esta version es `backend/server.js`. Si prefieres usar `npm start` desde la raiz, tambien funciona porque el proyecto ya apunta a ese archivo.
 
 ## Estructura
 

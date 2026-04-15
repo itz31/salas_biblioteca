@@ -24,6 +24,13 @@
       "correo": "prueba.copilot@alumnos.ucn.cl",
       "tipo": "estudiante",
       "password": "Clave123"
+    },
+    {
+      "id": "E004",
+      "nombre": "edison olivares",
+      "correo": "edison.olivares@alumnos.ucn.cl",
+      "tipo": "estudiante",
+      "password": "1664"
     }
   ],
   "funcionarios": [
