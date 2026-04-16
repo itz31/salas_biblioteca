@@ -3,65 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle Sala 9 - Biblioteca UCN</title>
+    <title>Características Sala - Biblioteca</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <style type="text/tailwindcss">
-        @import url('css/Styles.css');
-        @import url('css/characteristics.css');
+        @import url('css/main.css');
+        @import url('css/sala.css');
     </style>
 </head>
-<body class="bg-slate-100 p-2 md:p-6 min-h-screen font-sans">
+<body class="bg-slate-100 p-2 md:p-6 min-h-screen">
 
 <main class="max-w-6xl mx-auto bg-white shadow-xl rounded-2xl overflow-hidden grid grid-cols-1">
   
   <header class="bg-blue-900 p-6 text-white flex flex-wrap justify-between items-center gap-4">
     <hgroup>
-      <h1 class="text-2xl font-bold">Sala de Estudio 9</h1>
-      <p class="text-xs opacity-75 uppercase tracking-wider font-semibold">Ubicación: Segundo Piso</p>
+      <h1 id="sala-titulo" class="text-2xl font-bold italic">Cargando...</h1>
+      <p id="sala-piso" class="text-xs opacity-75 uppercase tracking-wider font-semibold"></p>
     </hgroup>
-    <button class="btn-confirmar">
-      Confirmar Reserva
-    </button>
+    <button class="btn-confirmar" onclick="alert('Reserva enviada')">Confirmar Reserva</button>
   </header>
 
   <section class="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 border-b border-gray-100">
-    
     <figure class="md:col-span-1">
-      <img src="img/sala_9.jpg" alt="Entrada a la Sala de Estudio 9" class="w-full h-56 object-cover rounded-xl shadow-lg">
-      <figcaption class="mt-3 text-xs text-gray-400 italic text-center">Referencia visual de la sala.</figcaption>
+      <img id="sala-img" src="" alt="Sala" class="w-full h-56 object-cover rounded-xl shadow-lg">
+      <figcaption class="mt-3 text-xs text-gray-400 italic text-center">Foto de la sala.</figcaption>
     </figure>
 
     <article class="md:col-span-2">
       <h2 class="text-xl font-bold mb-6 flex items-center gap-2 text-slate-800">
-        <span class="bg-blue-100 p-2 rounded-lg text-blue-900 text-sm">📋</span> Atributos de la Sala
+        <span class="bg-blue-100 p-2 rounded-lg text-blue-900 text-sm">📋</span> Detalles Técnicos
       </h2>
-      
       <dl class="grid grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
-        <section>
-          <dt class="detail-label">Capacidad</dt>
-          <dd class="text-slate-900 text-xl font-black">3 Personas</dd>
-        </section>
-        
-        <section>
-          <dt class="detail-label">Pizarra</dt>
-          <dd class="text-slate-900 text-xl font-black">1 Acrílica</dd>
-        </section>
-        
-        <section>
-          <dt class="detail-label">Pantalla</dt>
-          <dd class="text-slate-900 text-xl font-black text-red-600">No tiene</dd>
-        </section>
-
-        <section>
-          <dt class="detail-label">Mobiliario</dt>
-          <dd class="text-slate-900 text-xl font-black">Mesa Central</dd>
-        </section>
-
-        <section>
-          <dt class="detail-label">Conexiones</dt>
-          <dd class="text-slate-900 text-xl font-black">2 Enchufes</dd>
-        </section>
+        <section><dt class="detail-label">Capacidad</dt><dd id="info-capacidad" class="text-slate-900 text-xl font-black"></dd></section>
+        <section><dt class="detail-label">Sillas</dt><dd id="info-sillas" class="text-slate-900 text-xl font-black"></dd></section>
+        <section><dt class="detail-label">Pizarra</dt><dd id="info-pizarra" class="text-slate-900 text-xl font-black"></dd></section>
+        <section><dt class="detail-label">Multimedia</dt><dd id="info-tv" class="text-slate-900 text-xl font-black"></dd></section>
+        <section><dt class="detail-label">Entorno</dt><dd id="info-vista" class="text-slate-900 text-xl font-black"></dd></section>
       </dl>
     </article>
   </section>
@@ -70,66 +46,22 @@
     <h2 class="text-xl font-bold mb-6 flex items-center gap-2 text-slate-800">
       <span class="bg-blue-100 p-2 rounded-lg text-blue-900 text-sm">📅</span> Horario de Disponibilidad
     </h2>
-    
     <article class="overflow-x-auto">
-        <table class="w-full text-sm text-center border-separate border-spacing-1">
-          <thead>
-            <tr class="text-slate-600 uppercase text-[10px] tracking-widest">
-              <th class="p-2 font-black">Bloque</th>
-              <th class="p-2 font-black">Lunes</th>
-              <th class="p-2 font-black">Martes</th>
-              <th class="p-2 font-black">Miércoles</th>
-              <th class="p-2 font-black">Jueves</th>
-              <th class="p-2 font-black">Viernes</th>
-            </tr>
-          </thead>
-          <tbody class="text-slate-700 font-medium">
-            <tr>
-              <th scope="row" class="p-3 bg-slate-200 rounded-lg text-xs">08:00 - 09:30</th>
-              <td class="slot-disponible"><button class="slot-btn">Libre</button></td>
-              <td class="slot-disponible"><button class="slot-btn">Libre</button></td>
-              <td class="slot-ocupado"><button class="slot-btn" disabled>Ocupado</button></td>
-              <td class="slot-disponible"><button class="slot-btn">Libre</button></td>
-              <td class="slot-disponible"><button class="slot-btn">Libre</button></td>
-            </tr>
-            <tr>
-              <th scope="row" class="p-3 bg-slate-200 rounded-lg text-xs">09:40 - 11:10</th>
-              <td class="slot-ocupado"><button class="slot-btn" disabled>Ocupado</button></td>
-              <td class="slot-disponible"><button class="slot-btn">Libre</button></td>
-              <td class="slot-disponible"><button class="slot-btn">Libre</button></td>
-              <td class="slot-ocupado"><button class="slot-btn" disabled>Ocupado</button></td>
-              <td class="slot-disponible"><button class="slot-btn">Libre</button></td>
-            </tr>
-            <tr>
-              <th scope="row" class="p-3 bg-slate-200 rounded-lg text-xs">11:20 - 12:50</th>
-              <td class="slot-disponible"><button class="slot-btn">Libre</button></td>
-              <td class="slot-disponible"><button class="slot-btn">Libre</button></td>
-              <td class="slot-disponible"><button class="slot-btn">Libre</button></td>
-              <td class="slot-disponible"><button class="slot-btn">Libre</button></td>
-              <td class="slot-disponible"><button class="slot-btn">Libre</button></td>
-            </tr>
-            <tr>
-              <th scope="row" class="p-3 bg-slate-200 rounded-lg text-xs">14:30 - 16:00</th>
-              <td class="slot-disponible"><button class="slot-btn">Libre</button></td>
-              <td class="slot-ocupado"><button class="slot-btn" disabled>Ocupado</button></td>
-              <td class="slot-disponible"><button class="slot-btn">Libre</button></td>
-              <td class="slot-disponible"><button class="slot-btn">Libre</button></td>
-              <td class="slot-ocupado"><button class="slot-btn" disabled>Ocupado</button></td>
-            </tr>
-          </tbody>
-        </table>
+      <table class="w-full text-sm text-center border-separate border-spacing-1">
+        <thead>
+          <tr class="text-slate-600 uppercase text-[10px] tracking-widest">
+            <th>Bloque</th><th>Lunes</th><th>Martes</th><th>Miércoles</th><th>Jueves</th><th>Viernes</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-body"></tbody>
+      </table>
     </article>
   </section>
 
-  <footer class="p-6 bg-white flex justify-center">
-    <nav>
-      <a href="#" class="text-blue-700 font-bold hover:text-blue-900 flex items-center gap-2 transition-colors text-sm">
-        <span>←</span> Volver al mapa interactivo
-      </a>
-    </nav>
-  </footer>
-
+  <footer class="p-4 flex justify-center bg-white"><nav><a href="index.html" class="text-blue-700 font-bold text-sm">← Volver al Mapa</a></nav></footer>
 </main>
 
+<script src="js/salas.js"></script>
+<script src="js/render.js"></script>
 </body>
 </html>
