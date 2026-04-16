@@ -3,7 +3,7 @@ setlocal
 cd /d "%~dp0"
 
 if not exist "node_modules" (
-	echo No se encontraron dependencias instaladas.
+	echo No se encontraron dependencias instaladas nanai.
 	choice /C YN /M "Deseas instalar las dependencias ahora?"
 	if errorlevel 2 (
 		echo.
