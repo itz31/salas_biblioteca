@@ -22,11 +22,35 @@ npm -v
 
 Si ambos comandos muestran version, ya puedes seguir con la ejecucion del proyecto.
 
+## Instalacion de dependencias
+
+El archivo `iniciar.bat` usa `npm run dev`, y ese comando depende de las dependencias del proyecto.
+
+Antes de usarlo por primera vez, entra a la raiz del proyecto y ejecuta:
+
+```bat
+cd c:\ruta a tu carpeta\salas_biblioteca-main
+npm install
+```
+
+Eso instala `express` y `nodemon` segun lo que esta definido en `package.json`.
+
+No es necesario instalar `nodemon` de forma global. Si prefieres hacerlo globalmente, puedes usar:
+
+```bat
+npm install -g nodemon
+```
+
+pero para este proyecto no hace falta si ya ejecutaste `npm install`.
+
+Si abres `iniciar.bat` y detecta que faltan dependencias, te preguntara antes de instalarlas. Si respondes que no, el script se detiene y debes ejecutar `npm install` manualmente.
+
 ## Como ejecutar
 
 Opcion rapida en Windows:
 
 - Haz doble clic en `iniciar.bat` desde la raiz del proyecto.
+- Si es la primera vez, asegúrate de haber ejecutado antes `npm install` en la raiz.
 - Se abre el backend y luego el navegador en `frontend/index.html`.
 
 Opcion rapida en Linux/macOS:
@@ -53,6 +77,8 @@ cd c:\\ruta a tu carpeta\salas_biblioteca-main
 npm run dev
 ```
 
+Ese comando requiere que `nodemon` ya este instalado en las dependencias del proyecto, por eso es importante correr `npm install` primero.
+
 En carpeta `frontend`:
 
 ```bash
@@ -61,6 +87,15 @@ npx serve .
 ```
 
 Si abres el proyecto desde el navegador, la entrada inicial tambien puede ser `frontend/index.html`, que redirige al login.
+
+## Problemas comunes
+
+Si `iniciar.bat` no abre bien el proyecto, revisa esto:
+
+- Si aparece `npm no se reconoce como un comando`, instala Node.js otra vez y asegúrate de marcar la opcion para agregarlo al PATH.
+- Si `npm run dev` falla porque falta `nodemon` o `express`, vuelve a ejecutar `npm install` en la raiz del proyecto.
+- Si el navegador abre antes de que el backend termine de iniciar, espera unos segundos y recarga `http://localhost:3000/index.html`.
+- Si el puerto `3000` ya esta en uso, cierra el proceso que lo esta ocupando o cambia la variable `PORT` antes de iniciar el backend.
 
 ## Nota
 
