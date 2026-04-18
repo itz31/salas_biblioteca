@@ -1,0 +1,104 @@
+/* Estilos Base */
+body {
+    background-color: #f1f5f9; /* slate-100 */
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Tarjeta Principal */
+.map-card {
+    max-width: 72rem; /* max-w-6xl */
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    transition: all 0.5s ease-in-out;
+}
+
+/* Grilla del Mapa */
+.map-grid {
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(10, 60px);
+    gap: 0.5rem;
+    background-color: white;
+    position: relative;
+    transition: opacity 0.3s ease;
+}
+
+/* Salas Interactivas */
+.sala-ucn {
+    background-color: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.025em;
+    color: #334155;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.sala-ucn:hover {
+    border-color: #2563eb;
+    background-color: #eff6ff;
+    color: #1e3a8a;
+    transform: scale(1.03);
+    z-index: 10;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Áreas No Clickables */
+.area-estatica {
+    background-color: #f8fafc;
+    border: 1px solid #f1f5f9;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #94a3b8;
+    cursor: default;
+}
+
+/* Escaleras */
+.btn-escalera {
+    background-color: #fbbf24;
+    border: 2px solid #f59e0b;
+    color: #451a03;
+    font-weight: 900;
+    border-radius: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-escalera:hover {
+    background-color: #f59e0b;
+    transform: scale(1.03);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.hidden { display: none !important; }
+
+.pared {
+    background: linear-gradient(to right, #e2e8f0, #cbd5f5, #e2e8f0);
+    border-radius: 999px;
+    opacity: 0.3;
+}
