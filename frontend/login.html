@@ -110,7 +110,7 @@
 
                 localStorage.setItem('perfilActivo', JSON.stringify(data.perfil));
                 mostrarMensaje(loginMessage, 'Acceso correcto. Redirigiendo...', false);
-                window.location.href = 'Piso1.html';
+                window.location.href = 'mapa.html';
             } catch (error) {
                 mostrarMensaje(loginMessage, 'No se pudo conectar con el servidor. Inicia el backend.', true);
             }
