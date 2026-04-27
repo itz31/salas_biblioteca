@@ -1,0 +1,61 @@
+[
+  {
+    "id": "S-001",
+    "nombre": "Sala de Estudio Individual 1",
+    "capacidad": 1,
+    "piso": 1,
+    "sillas": 1,
+    "pizarra": false,
+    "multimedia": false,
+    "entorno": "Pequeña sala cerrada, ideal para estudio concentrado y silencioso sin distracciones.",
+    "horarios": [
+      { "idSala": "S-001", "dia": "Lunes", "hora_inicio": "08:30", "hora_finalizacion": "10:00", "reservada": false },
+      { "idSala": "S-001", "dia": "Lunes", "hora_inicio": "10:15", "hora_finalizacion": "11:45", "reservada": true },
+      { "idSala": "S-001", "dia": "Martes", "hora_inicio": "14:00", "hora_finalizacion": "15:30", "reservada": false }
+    ]
+  },
+  {
+    "id": "S-002",
+    "nombre": "Sala de Estudio Grupal A",
+    "capacidad": 6,
+    "piso": 1,
+    "sillas": 6,
+    "pizarra": true,
+    "multimedia": true,
+    "entorno": "Sala espaciosa con luz natural, ideal para reuniones grupales y presentaciones.",
+    "horarios": [
+      { "idSala": "S-002", "dia": "Miércoles", "hora_inicio": "09:00", "hora_finalizacion": "11:00", "reservada": false },
+      { "idSala": "S-002", "dia": "Jueves", "hora_inicio": "15:00", "hora_finalizacion": "16:30", "reservada": true },
+      { "idSala": "S-002", "dia": "Viernes", "hora_inicio": "11:00", "hora_finalizacion": "13:00", "reservada": false }
+    ]
+  },
+  {
+    "id": "S-003",
+    "nombre": "Sala de Computación",
+    "capacidad": 20,
+    "piso": -1,
+    "sillas": 20,
+    "pizarra": true,
+    "multimedia": true,
+    "entorno": "Laboratorio de computadoras equipado con proyector y red de alta velocidad.",
+    "horarios": [
+      { "idSala": "S-003", "dia": "Lunes", "hora_inicio": "08:30", "hora_finalizacion": "18:00", "reservada": false },
+      { "idSala": "S-003", "dia": "Martes", "hora_inicio": "08:30", "hora_finalizacion": "18:00", "reservada": false },
+      { "idSala": "S-003", "dia": "Miércoles", "hora_inicio": "08:30", "hora_finalizacion": "18:00", "reservada": false }
+    ]
+  },
+  {
+    "id": "S-004",
+    "nombre": "Sala de Silencio",
+    "capacidad": 10,
+    "piso": 2,
+    "sillas": 10,
+    "pizarra": false,
+    "multimedia": false,
+    "entorno": "Zona de sofás y mesas individuales con normas estrictas de silencio. Sin tecnología para evitar ruido.",
+    "horarios": [
+      { "idSala": "S-004", "dia": "Jueves", "hora_inicio": "10:00", "hora_finalizacion": "12:00", "reservada": false },
+      { "idSala": "S-004", "dia": "Viernes", "hora_inicio": "14:00", "hora_finalizacion": "16:00", "reservada": true }
+    ]
+  }
+]

@@ -9,6 +9,7 @@ const frontendDir = path.join(__dirname, '..', 'frontend');
 const dataPath = path.join(backendDir, 'data', 'perfiles.json');
 const reservasModule = require("./reservas");
 const historialModule = require("./historial");
+const salasModule = require("./salas");
 
 
 app.use(express.json());
@@ -171,14 +172,32 @@ app.delete("/reservas/:param?", (request, response) => {
   return response.status(200).json({ mensaje: `exito eliminacion reserva id ${request.params.param}` });
 });
 
-app.post("/reservas/:param?", (request, response) => {
-  reservasModule.crearReserva(request.params.param);
-  historialModule.agregarHistorial(request.params.param);
-  return response.status(200).json({ mensaje: `exito creacion reserva de nombre ${request.params.param}` });
+app.post("/reservas", (request, response) => {
+  const nuevaReserva = request.body;
+  if (!nuevaReserva) {
+    return response.status(400).json({ mensaje: "Faltan datos de la reserva." });
+  }
+  reservasModule.crearReserva(nuevaReserva);
+  historialModule.agregarHistorial(nuevaReserva);
+  return response.status(201).json({ mensaje: "Reserva creada con éxito" });
 });
 
+app.get("/salas", (request, response) => {
+  return response.status(200).json(salasModule.getSalas());
+})
+
+app.get("/salas/:param?", (request, response) => {
+  return response.status(200).json(salasModule.getSalaDetalles(request.params.param));
+})
 
 
+
+app.put("/salas/:param?", (request, response) => {
+  const id = request.params.param.split(",")[0];
+  const hora = request.params.param.split(",")[1];
+  salasModule.putReservado(id, hora)
+  return response.status(200).json({mensaje: "se ha reservado con exito"})
+})
 /**
  * Inicia el servidor HTTP en el puerto configurado.
  */

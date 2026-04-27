@@ -3,16 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Piso1</title>
+  <title>Piso 1 - Salas Biblioteca</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style type="text/tailwindcss">
+    @import url('css/Styles.css');
+  </style>
 </head>
-<body>
-  <h1>Piso1</h1>
-  <p id="tipoUsuario">Cargando tipo de usuario...</p>
+<body class="bg-slate-100 min-h-screen font-sans">
 
-  <p><a href="pisoNeg1.html">Ir a pisoNeg1</a></p>
-  <p><a href="characteristics.html">Ir a characteristics</a></p>
-  <p><a href="usuario.html">Ir a usuario</a></p>
-  <p><button id="cerrarSesion" type="button">Cerrar sesion</button></p>
+  <!-- Barra de navegación superior -->
+  <nav class="bg-blue-900 text-white shadow-md">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap justify-between items-center gap-4">
+      <div class="flex items-center gap-4">
+        <h1 class="text-2xl font-bold tracking-wide">Piso 1</h1>
+        <span id="tipoUsuario" class="bg-blue-800 text-blue-100 text-xs px-3 py-1 rounded-full border border-blue-700">Cargando...</span>
+      </div>
+
+      <div class="flex items-center gap-4 text-sm font-medium">
+        <a href="pisoNeg1.html" class="hover:text-blue-200 transition">Piso -1</a>
+        <a href="usuario.html" class="hover:text-blue-200 transition flex items-center gap-1">
+          <span>👤</span> Mi Perfil
+        </a>
+        <button id="cerrarSesion" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition ml-2">Cerrar Sesión</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contenido Principal -->
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <header class="mb-8 border-b border-slate-300 pb-4">
+      <h2 class="text-3xl font-bold text-slate-800 flex items-center gap-2">
+        <span class="bg-blue-100 p-2 rounded-lg text-blue-900 text-xl">📚</span> Salas Disponibles
+      </h2>
+      <p class="text-slate-500 mt-2 text-sm">Selecciona una sala para ver sus características y reservar horarios.</p>
+    </header>
+
+    <!-- Grid de tarjetas de salas -->
+    <section id="salas-disponibles" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Las tarjetas se inyectarán aquí mediante JS -->
+    </section>
+  </main>
 
   <script>
     // Inicializa la vista Piso1: lee sesion, muestra tipo de usuario y prepara acciones.
@@ -30,8 +60,77 @@
         } catch (error) {
           mensaje = 'No se pudo leer el tipo de usuario.';
         }
+      } else {
+        // Redirigir si no hay sesión
+        window.location.href = 'login.html';
+        return;
       }
 
+      function verDetalles(idSala) {
+        // Redirige a la página de características, pasando el ID de la sala como parámetro en la URL.
+        window.location.href = `characteristics.html?id=${idSala}`;
+      }
+
+      async function cargarSalas() {
+        const salasContainer = document.getElementById("salas-disponibles");
+        try {
+          const respuesta = await fetch("/salas");
+          if (!respuesta.ok) throw new Error("Error al cargar salas");
+          const salasJson = await respuesta.json();
+
+          if (salasJson.length === 0) {
+             salasContainer.innerHTML = '<p class="col-span-full text-center text-slate-500 p-8 bg-white rounded-xl shadow">No hay salas registradas.</p>';
+             return;
+          }
+
+          salasJson.forEach(sala => {
+            // Contenedor de la tarjeta (Tailwind)
+            const tarjeta = document.createElement("article");
+            tarjeta.className = "bg-white border border-slate-200 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden flex flex-col";
+
+            // Imagen placeholder superior
+            const img = document.createElement("img");
+            img.src = "https://via.placeholder.com/300x150?text=Sala+" + sala.nombre.replace(/ /g, '+');
+            img.className = "w-full h-32 object-cover";
+
+            // Cuerpo de la tarjeta
+            const cardBody = document.createElement("div");
+            cardBody.className = "p-5 flex flex-col flex-grow";
+
+            const titulo = document.createElement("h3");
+            titulo.className = "text-lg font-bold text-slate-800 mb-2 leading-tight";
+            titulo.textContent = sala.nombre;
+
+            // Enlace con estilo de botón
+            const linkContainer = document.createElement("div");
+            linkContainer.className = "mt-auto pt-4 flex justify-end";
+
+            const link = document.createElement("a");
+            link.className = "text-sm bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold px-4 py-2 rounded-lg transition inline-block";
+            link.textContent = "Ver Detalles →";
+            link.href = "#";
+            link.onclick = function(e) {
+              e.preventDefault();
+              verDetalles(sala.id);
+            };
+
+            // Ensamblaje
+            linkContainer.appendChild(link);
+            cardBody.appendChild(titulo);
+            cardBody.appendChild(linkContainer);
+
+            tarjeta.appendChild(img);
+            tarjeta.appendChild(cardBody);
+
+            salasContainer.appendChild(tarjeta);
+          });
+        } catch (error) {
+          console.error(error);
+          salasContainer.innerHTML = '<p class="col-span-full text-center text-red-500 p-8 bg-white rounded-xl shadow border border-red-200">Error al conectar con el servidor para cargar las salas.</p>';
+        }
+      }
+
+      cargarSalas();
       document.getElementById('tipoUsuario').textContent = mensaje;
 
       // Cierra sesion local y vuelve al login.

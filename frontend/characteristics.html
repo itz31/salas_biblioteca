@@ -16,15 +16,14 @@
   
   <header class="bg-blue-900 p-6 text-white flex flex-wrap justify-between items-center gap-4">
     <hgroup>
-      <h1 id="sala-titulo" class="text-2xl font-bold italic">Cargando...</h1>
+      <h1 id="sala-titulo" class="text-2xl font-bold italic">Cargando detalles...</h1>
       <p id="sala-piso" class="text-xs opacity-75 uppercase tracking-wider font-semibold"></p>
     </hgroup>
-    <button class="btn-confirmar" onclick="alert('Reserva enviada')">Confirmar Reserva</button>
   </header>
 
   <section class="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 border-b border-gray-100">
     <figure class="md:col-span-1">
-      <img id="sala-img" src="" alt="Sala" class="w-full h-56 object-cover rounded-xl shadow-lg">
+      <img id="sala-img" src="https://via.placeholder.com/400x300?text=Cargando+Imagen" alt="Sala" class="w-full h-56 object-cover rounded-xl shadow-lg">
       <figcaption class="mt-3 text-xs text-gray-400 italic text-center">Foto de la sala.</figcaption>
     </figure>
 
@@ -33,11 +32,11 @@
         <span class="bg-blue-100 p-2 rounded-lg text-blue-900 text-sm">📋</span> Detalles Técnicos
       </h2>
       <dl class="grid grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
-        <section><dt class="detail-label">Capacidad</dt><dd id="info-capacidad" class="text-slate-900 text-xl font-black"></dd></section>
-        <section><dt class="detail-label">Sillas</dt><dd id="info-sillas" class="text-slate-900 text-xl font-black"></dd></section>
-        <section><dt class="detail-label">Pizarra</dt><dd id="info-pizarra" class="text-slate-900 text-xl font-black"></dd></section>
-        <section><dt class="detail-label">Multimedia</dt><dd id="info-tv" class="text-slate-900 text-xl font-black"></dd></section>
-        <section><dt class="detail-label">Entorno</dt><dd id="info-vista" class="text-slate-900 text-xl font-black"></dd></section>
+        <section><dt class="text-xs text-slate-500 uppercase tracking-widest mb-1">Capacidad</dt><dd id="info-capacidad" class="text-slate-900 text-xl font-black">-</dd></section>
+        <section><dt class="text-xs text-slate-500 uppercase tracking-widest mb-1">Sillas</dt><dd id="info-sillas" class="text-slate-900 text-xl font-black">-</dd></section>
+        <section><dt class="text-xs text-slate-500 uppercase tracking-widest mb-1">Pizarra</dt><dd id="info-pizarra" class="text-slate-900 text-xl font-black">-</dd></section>
+        <section><dt class="text-xs text-slate-500 uppercase tracking-widest mb-1">Multimedia</dt><dd id="info-tv" class="text-slate-900 text-xl font-black">-</dd></section>
+        <section class="col-span-2 lg:col-span-3"><dt class="text-xs text-slate-500 uppercase tracking-widest mb-1">Entorno</dt><dd id="info-vista" class="text-slate-900 text-sm">-</dd></section>
       </dl>
     </article>
   </section>
@@ -47,21 +46,178 @@
       <span class="bg-blue-100 p-2 rounded-lg text-blue-900 text-sm">📅</span> Horario de Disponibilidad
     </h2>
     <article class="overflow-x-auto">
-      <table class="w-full text-sm text-center border-separate border-spacing-1">
+      <table class="w-full text-sm text-center border-collapse bg-white shadow-sm rounded-lg overflow-hidden">
         <thead>
-          <tr class="text-slate-600 uppercase text-[10px] tracking-widest">
-            <th>Bloque</th><th>Lunes</th><th>Martes</th><th>Miércoles</th><th>Jueves</th><th>Viernes</th>
+          <tr class="bg-slate-200 text-slate-600 uppercase text-[10px] tracking-widest">
+            <th class="p-3 border-b">Día</th>
+            <th class="p-3 border-b">Hora Inicio</th>
+            <th class="p-3 border-b">Hora Fin</th>
+            <th class="p-3 border-b">Estado</th>
+            <th class="p-3 border-b">Acción</th>
           </tr>
         </thead>
-        <tbody id="tabla-body"></tbody>
+        <tbody id="tabla-body">
+          <tr><td colspan="5" class="p-4">Cargando horarios...</td></tr>
+        </tbody>
       </table>
     </article>
   </section>
 
-  <footer class="p-4 flex justify-center bg-white"><nav><a href="index.html" class="text-blue-700 font-bold text-sm">← Volver al Mapa</a></nav></footer>
+  <footer class="p-4 flex justify-center bg-white"><nav><a href="Piso1.html" class="text-blue-700 font-bold text-sm hover:underline">← Volver al Mapa</a></nav></footer>
 </main>
 
-<script src="js/salas.js"></script>
-<script src="js/render.js"></script>
+<script>
+  (async function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const idSala = urlParams.get('id');
+    let nombreSalaGlobal = "";
+
+    if (!idSala) {
+      document.getElementById('sala-titulo').textContent = "Error: Sala no especificada";
+      return;
+    }
+
+    const cargarPerfil = () => JSON.parse(localStorage.getItem('perfilActivo'));
+
+    async function cargarDetalles() {
+      try {
+        const respuesta = await fetch(`/salas/${idSala}`);
+        const datos = await respuesta.json();
+
+        if (datos && datos.length > 0) {
+          const sala = datos[0];
+          nombreSalaGlobal = sala.nombre;
+
+          document.getElementById('sala-titulo').textContent = sala.nombre;
+          document.getElementById('sala-piso').textContent = `Piso ${sala.piso}`;
+
+          document.getElementById('info-capacidad').textContent = `${sala.capacidad} personas`;
+          document.getElementById('info-sillas').textContent = sala.sillas;
+          document.getElementById('info-pizarra').textContent = sala.pizarra ? "Sí" : "No";
+          document.getElementById('info-tv').textContent = sala.multimedia ? "Sí" : "No";
+          document.getElementById('info-vista').textContent = sala.entorno;
+
+          const tbody = document.getElementById('tabla-body');
+          tbody.innerHTML = '';
+
+          if (sala.horarios && sala.horarios.length > 0) {
+            sala.horarios.forEach(horario => {
+              const tr = document.createElement('tr');
+              tr.className = 'border-b border-slate-100 hover:bg-slate-50 transition';
+
+              // Columna Día
+              const tdDia = document.createElement('td');
+              tdDia.className = 'p-3';
+              tdDia.textContent = horario.dia;
+              tr.appendChild(tdDia);
+
+              // Columna Hora Inicio
+              const tdInicio = document.createElement('td');
+              tdInicio.className = 'p-3';
+              tdInicio.textContent = horario.hora_inicio;
+              tr.appendChild(tdInicio);
+
+              // Columna Hora Fin
+              const tdFin = document.createElement('td');
+              tdFin.className = 'p-3';
+              tdFin.textContent = horario.hora_finalizacion;
+              tr.appendChild(tdFin);
+
+              // Columna Estado
+              const tdEstado = document.createElement('td');
+              tdEstado.className = 'p-3 font-bold';
+
+              // Columna Acción
+              const tdAccion = document.createElement('td');
+              tdAccion.className = 'p-3';
+
+              if (horario.reservada) {
+                tdEstado.textContent = 'Reservada';
+                tdEstado.classList.add('text-red-600');
+
+                const spanOcupado = document.createElement('span');
+                spanOcupado.className = "text-slate-400 text-xs italic";
+                spanOcupado.textContent = "No disponible";
+                tdAccion.appendChild(spanOcupado);
+              } else {
+                tdEstado.textContent = 'Disponible';
+                tdEstado.classList.add('text-green-600');
+
+                const btnReservar = document.createElement('button');
+                btnReservar.textContent = 'Reservar';
+                btnReservar.className = 'bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded text-sm font-semibold transition shadow-sm';
+                btnReservar.onclick = () => hacerReserva(horario);
+                tdAccion.appendChild(btnReservar);
+              }
+
+              tr.appendChild(tdEstado);
+              tr.appendChild(tdAccion);
+              tbody.appendChild(tr);
+            });
+          } else {
+             tbody.innerHTML = '<tr><td colspan="5" class="p-4 text-slate-500">No hay horarios registrados.</td></tr>';
+          }
+        } else {
+           document.getElementById('sala-titulo').textContent = "Sala no encontrada";
+        }
+      } catch (error) {
+         console.error("Error al cargar los detalles:", error);
+         document.getElementById('sala-titulo').textContent = "Error al conectar con el servidor";
+      }
+    }
+
+    async function hacerReserva(horario) {
+        const perfil = cargarPerfil();
+        if (!perfil) {
+            alert("Debes iniciar sesión para reservar.");
+            window.location.href = "login.html";
+            return;
+        }
+
+        if (!confirm(`¿Confirmas la reserva para el ${horario.dia} de ${horario.hora_inicio} a ${horario.hora_finalizacion}?`)) {
+            return;
+        }
+
+        try {
+            // 1. Marcar como reservado en salas.json (PUT)
+            const putRespuesta = await fetch(`/salas/${idSala},${horario.hora_inicio}`, {
+                method: 'PUT'
+            });
+
+            if (!putRespuesta.ok) throw new Error("Error al actualizar la disponibilidad de la sala");
+
+            // 2. Crear la reserva en reservas.json e historial.json (POST)
+            const nuevaReserva = {
+                id: "res-" + Date.now(),
+                nombreUsuario: perfil.nombre,
+                sala: nombreSalaGlobal,
+                fecha: horario.dia,
+                hora: `${horario.hora_inicio} - ${horario.hora_finalizacion}`
+            };
+
+            const postRespuesta = await fetch("/reservas", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(nuevaReserva)
+            });
+
+            if (!postRespuesta.ok) throw new Error("Error al registrar la reserva en tu perfil");
+
+            alert("¡Reserva realizada con éxito!");
+            cargarDetalles(); // Recargar la tabla para mostrar que ahora está ocupada
+
+        } catch (error) {
+            console.error("Error al reservar:", error);
+            alert("Hubo un problema al procesar tu reserva.");
+        }
+    }
+
+    // Inicializar
+    cargarDetalles();
+
+  })();
+</script>
 </body>
 </html>
