@@ -1,13 +1,41 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Salas Biblioteca</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salas Biblioteca UCN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style type="text/tailwindcss">
+        @import url('css/Styles.css');
+    </style>
 </head>
-<body>
-  <h1>Salas Biblioteca</h1>
-  <p>Bienvenido al sistema.</p>
-  <p><a href="login.html">Ir al login</a></p>
+<body class="bg-slate-100 p-2 md:p-6 min-h-screen font-sans flex items-center justify-center">
+    <main class="max-w-2xl w-full bg-white shadow-xl rounded-2xl overflow-hidden">
+        <header class="bg-blue-900 p-8 text-white">
+            <hgroup>
+                <h1 class="text-4xl font-bold mb-2">Salas Biblioteca UCN</h1>
+                <p class="text-lg opacity-90">Sistema de Reservas de Salas</p>
+            </hgroup>
+        </header>
+
+        <section class="p-8 md:p-12 bg-slate-50">
+            <article class="text-center">
+                <h2 class="text-2xl font-bold text-slate-800 mb-4">¡Bienvenido!</h2>
+                <p class="text-slate-600 text-lg mb-8 leading-relaxed">
+                    Accede al sistema de reservas de salas de la biblioteca UCN. 
+                    Aquí podrás visualizar la disponibilidad de las salas y realizar tus reservas de forma rápida y sencilla.
+                </p>
+                
+                <div class="flex gap-4 justify-center">
+                    <a href="login.html" class="btn-confirmar px-8 py-3 inline-block">Ir al Login</a>
+                </div>
+            </article>
+        </section>
+
+        <footer class="bg-slate-100 p-6 text-center text-slate-600 text-sm">
+            <p>© 2026 Salas Biblioteca UCN. Todos los derechos reservados.</p>
+        </footer>
+    </main>
 </body>
 </html>
