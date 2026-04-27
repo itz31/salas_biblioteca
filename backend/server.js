@@ -72,13 +72,6 @@ function obtenerSiguienteId(lista, prefijo) {
 }
 
 /**
- * Ruta raiz: redirige al login del frontend.
- */
-app.get('/', function (_request, response) {
-  response.redirect('/login.html');
-});
-
-/**
  * Endpoint de login:
  * valida datos, busca al usuario y devuelve el perfil sin password.
  */

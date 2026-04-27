@@ -3,7 +3,7 @@ setlocal
 cd /d "%~dp0"
 
 if not exist "node_modules" (
-	echo No se encontraron dependencias instaladas nanai.
+	echo No se encontraron dependencias instaladas.
 	choice /C YN /M "Deseas instalar las dependencias ahora?"
 	if errorlevel 2 (
 		echo.
@@ -23,6 +23,7 @@ if not exist "node_modules" (
 	)
 )
 
-start "Backend Salas Biblioteca" cmd /k "cd /d ""%~dp0"" && npm run dev"
-timeout /t 5 /nobreak >nul
-start "" "http://localhost:3000/index.html"
+echo Iniciando servidor Salas Biblioteca...
+start "Backend Salas Biblioteca" cmd /k "cd /d ""%~dp0"" && node backend/server.js"
+timeout /t 3 /nobreak >nul
+start "" "http://localhost:3000"
