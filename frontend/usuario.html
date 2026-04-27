@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagina Usuario</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style type="text/tailwindcss">
+    @import url('css/Styles.css');
+  </style>
+</head>
+
+<body class="bg-slate-100 p-2 md:p-6 min-h-screen font-sans">
+    <main class="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl overflow-hidden grid grid-cols-1">
+      <header class="bg-blue-900 p-6 text-white flex flex-wrap justify-between items-center gap-4">
+        <div class="flex items-center gap-4">
+          <div class="w-16 h-16 bg-slate-300 rounded-full flex items-center justify-center overflow-hidden border-2 border-white">
+             <!-- Placeholder para avatar -->
+            <svg class="w-10 h-10 text-slate-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+          </div>
+          <hgroup>
+            <h1 id="Usuario h1" class="text-2xl font-bold">Cargando nombre usuario...</h1>
+            <h2 id="Usuario cargo" class="text-sm opacity-75 uppercase tracking-wider font-semibold">Cargo: ...</h2>
+          </hgroup>
+        </div>
+        <a href="Piso1.html" class="text-sm bg-blue-800 hover:bg-blue-700 px-4 py-2 rounded-lg transition">Volver al Mapa</a>
+      </header>
+
+      <section class="p-6 md:p-10 bg-slate-50 grid grid-cols-1 gap-8">
+        <!-- Reservas Activas -->
+        <article class="bg-white border border-slate-200 rounded-xl shadow-md p-6">
+          <h2 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Reservas Activas</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-slate-100 text-slate-600 text-sm uppercase tracking-wider">
+                  <th class="p-3 font-semibold rounded-tl-lg">Sala</th>
+                  <th class="p-3 font-semibold">Fecha</th>
+                  <th class="p-3 font-semibold">Hora</th>
+                  <th class="p-3 font-semibold rounded-tr-lg">Acción</th>
+                </tr>
+              </thead>
+              <tbody id="reservas-body">
+                <tr>
+                  <td colspan="4" class="p-4 text-center text-slate-500">cargando...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <!-- Historial -->
+        <article id="historial-div" class="bg-white border border-slate-200 rounded-xl shadow-md p-6">
+          <h2 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Historial de Reservas</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-slate-100 text-slate-600 text-sm uppercase tracking-wider">
+                  <th class="p-3 font-semibold rounded-tl-lg">Sala</th>
+                  <th class="p-3 font-semibold">Fecha</th>
+                  <th class="p-3 font-semibold rounded-tr-lg">Hora</th>
+                </tr>
+              </thead>
+              <tbody id="historial-body">
+                <tr>
+                  <td colspan="3" class="p-4 text-center text-slate-500">cargando...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+    </main>
+
+  <script>
+    (function () {
+
+      const cargarPerfil = () => JSON.parse(localStorage.getItem('perfilActivo'));
+
+      const actualizarH1 = () => {
+        const perfil = cargarPerfil();
+        if(!perfil) {
+           window.location.href = 'login.html';
+           return;
+        }
+        document.getElementById('Usuario h1').textContent = perfil.nombre;
+        document.getElementById('Usuario cargo').textContent = `Cargo: ${perfil.tipo}`;
+      }
+
+      async function fetchReservas(nombreUsuario) {
+          return await fetch(`/reservas/${nombreUsuario}`);
+      }
+
+      async function fetchAllReservas(nombreUsuario) {
+        return await fetch(`/reservas/all`);
+      }
+
+
+      // Función asíncrona para pedir la tabla a la API
+      async function cargarTablaReservas(fetchFunction) {
+        const perfil = cargarPerfil()
+        if(!perfil) return;
+        const nombreUsuario = perfil.nombre
+        try {
+          // El backend espera el parámetro en la ruta: /reservas/:param
+          const respuesta = await fetchFunction(nombreUsuario);
+          if (!respuesta.ok) throw new Error('Error al conectar con la API');
+          
+          const datos = await respuesta.json();
+          document.getElementById('reservas-body').innerHTML = datos.html;
+          
+          // Una vez inyectado el HTML, agregamos los botones
+          cargarBotones(fetchFunction);
+        } catch (error) {
+          console.error('Error:', error);
+          document.getElementById('reservas-body').innerHTML = '<tr><td colspan="4" class="p-4 text-center text-red-500">Error al cargar la información.</td></tr>';
+        }
+      }
+      
+      async function eliminarReserva(idReserva, fetchFunction) {
+        if (!confirm('¿Estás seguro de que deseas eliminar esta reserva?')) return;
+        
+        try {
+          const respuesta = await fetch(`/reservas/${idReserva}`, { method: 'DELETE' });
+          if (!respuesta.ok) throw new Error('Falló la eliminación');
+          
+          // Recargamos la tabla para que desaparezca la reserva eliminada
+          cargarTablaReservas(fetchFunction);
+        } catch (error) {
+          console.error('Error al eliminar:', error);
+          alert('Hubo un problema al eliminar la reserva.');
+        }
+      }
+
+      function cargarBotones(fetchFunction) {
+        // Usamos querySelectorAll para obtener un NodeList, el cual sí permite usar .forEach()
+        const filas = document.querySelectorAll('#reservas-body tr');
+        
+        filas.forEach(tr => {
+          // Ignoramos la fila si es el mensaje de "cargando..." o "Error..." (que usan colspan)
+          if (tr.children.length === 1 && tr.children[0].hasAttribute('colspan')) return;
+
+          // Si la fila tiene 3 columnas (Sala, Fecha, Hora), creamos la 4ta. Si ya tiene 4, la seleccionamos.
+          const tdAccion = tr.children.length === 3 ? tr.appendChild(document.createElement('td')) : tr.children[3];
+          tdAccion.className = 'p-3 text-right';
+
+          const btnEliminar = document.createElement('button');
+          btnEliminar.textContent = 'Eliminar';
+          btnEliminar.className = 'text-red-500 hover:text-red-700 font-medium transition';
+
+          // Al hacer clic, llamamos a la API usando el ID de la reserva.
+          // NOTA: Asegúrate de que el backend asigne el id de la reserva al atributo data-id del <tr>
+          // Por ejemplo: <tr data-id="123">
+          btnEliminar.onclick = () => eliminarReserva(tr.dataset.id || tr.id, fetchFunction);
+          
+          tdAccion.innerHTML = ''; // Limpiamos la celda por si acaso
+          tdAccion.appendChild(btnEliminar);
+        });
+      }
+
+      const eliminarTablaHistorial = () => {
+        document.getElementById('historial-div').style.display = 'none';
+      }
+
+      async function cargarHistorial() {
+        try {
+          const perfil = cargarPerfil()
+          if(!perfil) return;
+          const historial = await fetch(`/historial/${perfil.nombre}`)
+          if (!historial.ok) throw new Error('Error al conectar con la API');
+          const datos = await historial.json();
+          const tbody = document.getElementById('historial-body');
+          if (datos.html.trim() === '') {
+             tbody.innerHTML = '<tr><td colspan="3" class="p-4 text-center text-slate-500">No hay historial disponible.</td></tr>';
+          } else {
+             tbody.innerHTML = datos.html;
+          }
+        }
+        catch (error) {
+          console.error('Error:', error);
+          document.getElementById('historial-body').innerHTML = '<tr><td colspan="3" class="p-4 text-center text-red-500">Error al cargar el historial.</td></tr>';
+        }
+      }
+
+
+
+      actualizarH1();
+      const perfil = cargarPerfil();
+      if(perfil) {
+          // Ejecutar la petición al cargar la vista usando el nombre del perfil
+          switch (perfil.tipo.toUpperCase()) {
+            case "ESTUDIANTE":
+            case "PROFESOR":
+            case "FUNCIONARIO":
+              cargarTablaReservas(fetchReservas);
+              cargarHistorial();
+              break;
+
+            case "ADMINISTRADOR":
+              eliminarTablaHistorial();
+              cargarTablaReservas(fetchAllReservas);
+              break;
+          }
+      }
+
+    })();
+  </script>
+</body>
+</html>

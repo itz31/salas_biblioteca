@@ -7,6 +7,9 @@ const port = process.env.PORT || 3000;
 const backendDir = __dirname;
 const frontendDir = path.join(__dirname, '..', 'frontend');
 const dataPath = path.join(backendDir, 'data', 'perfiles.json');
+const reservasModule = require("./reservas");
+const historialModule = require("./historial");
+
 
 app.use(express.json());
 app.use(express.static(frontendDir));
@@ -150,6 +153,31 @@ app.post('/api/register', function (request, response) {
   const { password: _password, ...perfilSinPassword } = nuevoPerfil;
   return response.status(201).json({ perfil: perfilSinPassword });
 });
+
+app.get("/reservas/:param?", (request, response) => {
+  return response.status(200).json({ html: reservasModule.listReservas(request.params.param) });
+});
+
+app.get("/reservas/all", (request, response) => {
+  return response.status(200).json({ html: reservasModule.listAllReservas() });
+})
+
+app.get("/historial/:param?", (request, response) => {
+  return response.status(200).json({ html: historialModule.leerHistorial(request.params.param) });
+})
+
+app.delete("/reservas/:param?", (request, response) => {
+  reservasModule.eliminarReserva(request.params.param);
+  return response.status(200).json({ mensaje: `exito eliminacion reserva id ${request.params.param}` });
+});
+
+app.post("/reservas/:param?", (request, response) => {
+  reservasModule.crearReserva(request.params.param);
+  historialModule.agregarHistorial(request.params.param);
+  return response.status(200).json({ mensaje: `exito creacion reserva de nombre ${request.params.param}` });
+});
+
+
 
 /**
  * Inicia el servidor HTTP en el puerto configurado.

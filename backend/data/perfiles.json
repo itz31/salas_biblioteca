@@ -31,6 +31,13 @@
       "correo": "edison.olivares@alumnos.ucn.cl",
       "tipo": "estudiante",
       "password": "1664"
+    },
+    {
+      "id": "E005",
+      "nombre": "Hola",
+      "correo": "hola@alumnos.ucn.cl",
+      "tipo": "estudiante",
+      "password": "coloma30"
     }
   ],
   "funcionarios": [
