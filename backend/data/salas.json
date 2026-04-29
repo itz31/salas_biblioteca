@@ -1,61 +1,730 @@
-[
-  {
-    "id": "S-001",
-    "nombre": "Sala de Estudio Individual 1",
-    "capacidad": 1,
-    "piso": 1,
-    "sillas": 1,
-    "pizarra": false,
-    "multimedia": false,
-    "entorno": "Pequeña sala cerrada, ideal para estudio concentrado y silencioso sin distracciones.",
-    "horarios": [
-      { "idSala": "S-001", "dia": "Lunes", "hora_inicio": "08:30", "hora_finalizacion": "10:00", "reservada": false },
-      { "idSala": "S-001", "dia": "Lunes", "hora_inicio": "10:15", "hora_finalizacion": "11:45", "reservada": true },
-      { "idSala": "S-001", "dia": "Martes", "hora_inicio": "14:00", "hora_finalizacion": "15:30", "reservada": false }
+{
+  "1": {
+    "numero": "1",
+    "piso": "Segundo Piso",
+    "imagen": "img/sala_1.jpg",
+    "sillas": "6",
+    "capacidad": "6",
+    "pizarra": "Grande",
+    "television": "Con Televisión",
+    "vista": "Mar",
+    "disponibilidad": [
+      {
+        "bloque": "08:00 - 09:30",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "09:40 - 11:10",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "11:20 - 12:50",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "14:30 - 16:00",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "16:10 - 17:40",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      }
     ]
   },
-  {
-    "id": "S-002",
-    "nombre": "Sala de Estudio Grupal A",
-    "capacidad": 6,
-    "piso": 1,
-    "sillas": 6,
-    "pizarra": true,
-    "multimedia": true,
-    "entorno": "Sala espaciosa con luz natural, ideal para reuniones grupales y presentaciones.",
-    "horarios": [
-      { "idSala": "S-002", "dia": "Miércoles", "hora_inicio": "09:00", "hora_finalizacion": "11:00", "reservada": false },
-      { "idSala": "S-002", "dia": "Jueves", "hora_inicio": "15:00", "hora_finalizacion": "16:30", "reservada": true },
-      { "idSala": "S-002", "dia": "Viernes", "hora_inicio": "11:00", "hora_finalizacion": "13:00", "reservada": false }
+  "2": {
+    "numero": "2",
+    "piso": "Segundo Piso",
+    "imagen": "img/sala_2.jpg",
+    "sillas": "6",
+    "capacidad": "6",
+    "pizarra": "Pequeña",
+    "television": "No tiene",
+    "vista": "Pared",
+    "disponibilidad": [
+      {
+        "bloque": "08:00 - 09:30",
+        "lunes": false,
+        "martes": true,
+        "miercoles": true,
+        "jueves": false,
+        "viernes": true
+      },
+      {
+        "bloque": "09:40 - 11:10",
+        "lunes": true,
+        "martes": false,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "11:20 - 12:50",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "14:30 - 16:00",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "16:10 - 17:40",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      }
     ]
   },
-  {
-    "id": "S-003",
-    "nombre": "Sala de Computación",
-    "capacidad": 20,
-    "piso": -1,
-    "sillas": 20,
-    "pizarra": true,
-    "multimedia": true,
-    "entorno": "Laboratorio de computadoras equipado con proyector y red de alta velocidad.",
-    "horarios": [
-      { "idSala": "S-003", "dia": "Lunes", "hora_inicio": "08:30", "hora_finalizacion": "18:00", "reservada": false },
-      { "idSala": "S-003", "dia": "Martes", "hora_inicio": "08:30", "hora_finalizacion": "18:00", "reservada": false },
-      { "idSala": "S-003", "dia": "Miércoles", "hora_inicio": "08:30", "hora_finalizacion": "18:00", "reservada": false }
+  "3": {
+    "numero": "3",
+    "piso": "Segundo Piso",
+    "imagen": "img/sala_3.jpg",
+    "sillas": "6",
+    "capacidad": "6",
+    "pizarra": "Grande",
+    "television": "Con Televisión",
+    "vista": "Pared",
+    "disponibilidad": [
+      {
+        "bloque": "08:00 - 09:30",
+        "lunes": false,
+        "martes": true,
+        "miercoles": true,
+        "jueves": false,
+        "viernes": true
+      },
+      {
+        "bloque": "09:40 - 11:10",
+        "lunes": true,
+        "martes": false,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "11:20 - 12:50",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "14:30 - 16:00",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "16:10 - 17:40",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      }
     ]
   },
-  {
-    "id": "S-004",
-    "nombre": "Sala de Silencio",
-    "capacidad": 10,
-    "piso": 2,
-    "sillas": 10,
-    "pizarra": false,
-    "multimedia": false,
-    "entorno": "Zona de sofás y mesas individuales con normas estrictas de silencio. Sin tecnología para evitar ruido.",
-    "horarios": [
-      { "idSala": "S-004", "dia": "Jueves", "hora_inicio": "10:00", "hora_finalizacion": "12:00", "reservada": false },
-      { "idSala": "S-004", "dia": "Viernes", "hora_inicio": "14:00", "hora_finalizacion": "16:00", "reservada": true }
+  "4": {
+    "numero": "4",
+    "piso": "Segundo Piso",
+    "imagen": "img/sala_4.jpg",
+    "sillas": "6",
+    "capacidad": "6",
+    "pizarra": "Grande",
+    "television": "No tiene",
+    "vista": "Mar",
+    "disponibilidad": [
+      {
+        "bloque": "08:00 - 09:30",
+        "lunes": false,
+        "martes": true,
+        "miercoles": true,
+        "jueves": false,
+        "viernes": true
+      },
+      {
+        "bloque": "09:40 - 11:10",
+        "lunes": true,
+        "martes": false,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "11:20 - 12:50",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "14:30 - 16:00",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "16:10 - 17:40",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      }
+    ]
+  },
+  "5": {
+    "numero": "5",
+    "piso": "Segundo Piso",
+    "imagen": "img/sala_5.jpg",
+    "sillas": "4",
+    "capacidad": "4",
+    "pizarra": "Mediana",
+    "television": "Con Televisión",
+    "vista": "Interior",
+    "disponibilidad": [
+      {
+        "bloque": "08:00 - 09:30",
+        "lunes": false,
+        "martes": true,
+        "miercoles": true,
+        "jueves": false,
+        "viernes": true
+      },
+      {
+        "bloque": "09:40 - 11:10",
+        "lunes": true,
+        "martes": false,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "11:20 - 12:50",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "14:30 - 16:00",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "16:10 - 17:40",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      }
+    ]
+  },
+  "6": {
+    "numero": "6",
+    "piso": "Primer Piso",
+    "imagen": "img/sala_6.jpg",
+    "sillas": "6",
+    "capacidad": "6",
+    "pizarra": "Grande",
+    "television": "Con Televisión",
+    "vista": "Mar",
+    "disponibilidad": [
+      {
+        "bloque": "08:00 - 09:30",
+        "lunes": false,
+        "martes": true,
+        "miercoles": true,
+        "jueves": false,
+        "viernes": true
+      },
+      {
+        "bloque": "09:40 - 11:10",
+        "lunes": true,
+        "martes": false,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "11:20 - 12:50",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "14:30 - 16:00",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "16:10 - 17:40",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      }
+    ]
+  },
+  "7": {
+    "numero": "7",
+    "piso": "Primer Piso",
+    "imagen": "img/sala_7.jpg",
+    "sillas": "6",
+    "capacidad": "6",
+    "pizarra": "Pequeña",
+    "television": "No tiene",
+    "vista": "Pared",
+    "disponibilidad": [
+      {
+        "bloque": "08:00 - 09:30",
+        "lunes": false,
+        "martes": true,
+        "miercoles": true,
+        "jueves": false,
+        "viernes": true
+      },
+      {
+        "bloque": "09:40 - 11:10",
+        "lunes": true,
+        "martes": false,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "11:20 - 12:50",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "14:30 - 16:00",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "16:10 - 17:40",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      }
+    ]
+  },
+  "8": {
+    "numero": "8",
+    "piso": "Primer Piso",
+    "imagen": "img/sala_8.jpg",
+    "sillas": "6",
+    "capacidad": "6",
+    "pizarra": "Grande",
+    "television": "Con Televisión",
+    "vista": "Pared",
+    "disponibilidad": [
+      {
+        "bloque": "08:00 - 09:30",
+        "lunes": false,
+        "martes": true,
+        "miercoles": true,
+        "jueves": false,
+        "viernes": true
+      },
+      {
+        "bloque": "09:40 - 11:10",
+        "lunes": true,
+        "martes": false,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "11:20 - 12:50",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "14:30 - 16:00",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "16:10 - 17:40",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      }
+    ]
+  },
+  "9": {
+    "numero": "9",
+    "piso": "Primer Piso",
+    "imagen": "img/sala_9.jpg",
+    "sillas": "3",
+    "capacidad": "3",
+    "pizarra": "Pequeña",
+    "television": "No tiene",
+    "vista": "Entrada",
+    "disponibilidad": [
+      {
+        "bloque": "08:00 - 09:30",
+        "lunes": false,
+        "martes": true,
+        "miercoles": true,
+        "jueves": false,
+        "viernes": true
+      },
+      {
+        "bloque": "09:40 - 11:10",
+        "lunes": true,
+        "martes": false,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "11:20 - 12:50",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "14:30 - 16:00",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "16:10 - 17:40",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      }
+    ]
+  },
+  "10": {
+    "numero": "10",
+    "piso": "Primer Piso",
+    "imagen": "img/sala_9.jpg",
+    "sillas": "3",
+    "capacidad": "3",
+    "pizarra": "Pequeña",
+    "television": "No tiene",
+    "vista": "Entrada",
+    "disponibilidad": [
+      {
+        "bloque": "08:00 - 09:30",
+        "lunes": false,
+        "martes": true,
+        "miercoles": true,
+        "jueves": false,
+        "viernes": true
+      },
+      {
+        "bloque": "09:40 - 11:10",
+        "lunes": true,
+        "martes": false,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "11:20 - 12:50",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "14:30 - 16:00",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "16:10 - 17:40",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      }
+    ]
+  },
+  "11": {
+    "numero": "11",
+    "piso": "Primer Piso",
+    "imagen": "img/sala_9.jpg",
+    "sillas": "6",
+    "capacidad": "6",
+    "pizarra": "Grande",
+    "television": "Con Televisión",
+    "vista": "Entrada",
+    "disponibilidad": [
+      {
+        "bloque": "08:00 - 09:30",
+        "lunes": false,
+        "martes": true,
+        "miercoles": true,
+        "jueves": false,
+        "viernes": true
+      },
+      {
+        "bloque": "09:40 - 11:10",
+        "lunes": true,
+        "martes": false,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "11:20 - 12:50",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "14:30 - 16:00",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "16:10 - 17:40",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      }
+    ]
+  },
+  "12": {
+    "numero": "9",
+    "piso": "Primer Piso",
+    "imagen": "img/sala_9.jpg",
+    "sillas": "4",
+    "capacidad": "4",
+    "pizarra": "Mediana",
+    "television": "No tiene",
+    "vista": "Pared",
+    "disponibilidad": [
+      {
+        "bloque": "08:00 - 09:30",
+        "lunes": false,
+        "martes": false,
+        "miercoles": true,
+        "jueves": false,
+        "viernes": true
+      },
+      {
+        "bloque": "09:40 - 11:10",
+        "lunes": true,
+        "martes": false,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "11:20 - 12:50",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "14:30 - 16:00",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "16:10 - 17:40",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      }
+    ]
+  },
+  "13": {
+    "numero": "9",
+    "piso": "Primer Piso",
+    "imagen": "img/sala_9.jpg",
+    "sillas": "8",
+    "capacidad": "8",
+    "pizarra": "Mar",
+    "television": "No tiene",
+    "vista": "Pared",
+    "disponibilidad": [
+      {
+        "bloque": "08:00 - 09:30",
+        "lunes": false,
+        "martes": true,
+        "miercoles": true,
+        "jueves": false,
+        "viernes": true
+      },
+      {
+        "bloque": "09:40 - 11:10",
+        "lunes": true,
+        "martes": false,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "11:20 - 12:50",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "14:30 - 16:00",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "16:10 - 17:40",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      }
+    ]
+  },
+  "14": {
+    "numero": "9",
+    "piso": "Primer Piso",
+    "imagen": "img/sala_9.jpg",
+    "sillas": "4",
+    "capacidad": "4",
+    "pizarra": "Mediana",
+    "television": "No tiene",
+    "vista": "Mar",
+    "disponibilidad": [
+      {
+        "bloque": "08:00 - 09:30",
+        "lunes": false,
+        "martes": true,
+        "miercoles": true,
+        "jueves": false,
+        "viernes": true
+      },
+      {
+        "bloque": "09:40 - 11:10",
+        "lunes": true,
+        "martes": false,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "11:20 - 12:50",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "14:30 - 16:00",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      },
+      {
+        "bloque": "16:10 - 17:40",
+        "lunes": true,
+        "martes": true,
+        "miercoles": true,
+        "jueves": true,
+        "viernes": true
+      }
     ]
   }
-]
+}

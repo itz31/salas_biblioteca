@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Características Sala - Biblioteca</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style type="text/tailwindcss">
+        @import url('css/Styles.css');
+        @import url('css/detalleSalas.css');
+    </style>
+</head>
+<body class="bg-slate-100 p-2 md:p-6 min-h-screen">
+
+<main class="max-w-6xl mx-auto bg-white shadow-xl rounded-2xl overflow-hidden grid grid-cols-1">
+  
+  <header class="bg-blue-900 p-6 text-white flex flex-wrap justify-between items-center gap-4">
+    <hgroup>
+      <h1 id="sala-titulo" class="text-2xl font-bold italic">Cargando detalles...</h1>
+      <p id="sala-piso" class="text-xs opacity-75 uppercase tracking-wider font-semibold"></p>
+    </hgroup>
+  </header>
+
+  <section class="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 border-b border-gray-100">
+    <figure class="md:col-span-1">
+      <img id="sala-img" src="https://via.placeholder.com/400x300?text=Cargando+Imagen" alt="Sala" class="w-full h-56 object-cover rounded-xl shadow-lg">
+      <figcaption class="mt-3 text-xs text-gray-400 italic text-center">Foto de la sala.</figcaption>
+    </figure>
+
+    <article class="md:col-span-2">
+      <h2 class="text-xl font-bold mb-6 flex items-center gap-2 text-slate-800">
+        <span class="bg-blue-100 p-2 rounded-lg text-blue-900 text-sm">📋</span> Detalles Técnicos
+      </h2>
+      <dl class="grid grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
+        <section><dt class="text-xs text-slate-500 uppercase tracking-widest mb-1">Capacidad</dt><dd id="info-capacidad" class="text-slate-900 text-xl font-black">-</dd></section>
+        <section><dt class="text-xs text-slate-500 uppercase tracking-widest mb-1">Sillas</dt><dd id="info-sillas" class="text-slate-900 text-xl font-black">-</dd></section>
+        <section><dt class="text-xs text-slate-500 uppercase tracking-widest mb-1">Pizarra</dt><dd id="info-pizarra" class="text-slate-900 text-xl font-black">-</dd></section>
+        <section><dt class="text-xs text-slate-500 uppercase tracking-widest mb-1">Multimedia</dt><dd id="info-tv" class="text-slate-900 text-xl font-black">-</dd></section>
+        <section class="col-span-2 lg:col-span-3"><dt class="text-xs text-slate-500 uppercase tracking-widest mb-1">Entorno</dt><dd id="info-vista" class="text-slate-900 text-sm">-</dd></section>
+      </dl>
+    </article>
+  </section>
+
+  <section class="p-8 bg-slate-50">
+    <h2 class="text-xl font-bold mb-6 flex items-center gap-2 text-slate-800">
+      <span class="bg-blue-100 p-2 rounded-lg text-blue-900 text-sm">📅</span> Horario de Disponibilidad
+    </h2>
+    <article class="overflow-x-auto">
+      <table class="w-full text-sm text-center border-collapse bg-white shadow-sm rounded-lg overflow-hidden">
+        <thead>
+          <tr class="bg-slate-200 text-slate-600 uppercase text-[10px] tracking-widest">
+            <th class="p-3 border-b">Día</th>
+            <th class="p-3 border-b">Hora Inicio</th>
+            <th class="p-3 border-b">Hora Fin</th>
+            <th class="p-3 border-b">Estado</th>
+            <th class="p-3 border-b">Acción</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-body">
+          <tr><td colspan="5" class="p-4">Cargando horarios...</td></tr>
+        </tbody>
+      </table>
+    </article>
+  </section>
+
+  <footer class="p-4 flex justify-center bg-white"><nav><a href="mapa.html" class="text-blue-700 font-bold text-sm hover:underline">← Volver al Mapa</a></nav></footer>
+</main>
+
+<script src="js/detalleSalas.js"></script>
+</body>
+</html>

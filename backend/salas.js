@@ -14,20 +14,59 @@ const getSalas = () => {
 }
 
 const getSalaDetalles = idSala => {
-    const json = getJson()
-    return json.filter(sala => sala.id === idSala)
-}
-
-const putReservado = (idSala, horaInicio) => {
+    const idLimpio = idSala.replace('S-', '').replace(/^0+/, ''); // "S-006" → "6"
     const json = getJson();
-    
-    const sala = json.find(s => s.id === idSala);
-    if (sala) {
-        const horario = sala.horarios.find(h => h.hora_inicio === horaInicio);
-        if (horario) horario.reservada = true;
-    }
-    fs.writeFileSync(path.join(__dirname, "data", "salas.json"), JSON.stringify(json, null, 2));
+    const sala = json[idLimpio];
+    if (!sala) return [];
 
-}
+    const dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes'];
+    const diasNombre = { lunes: 'Lunes', martes: 'Martes', miercoles: 'Miércoles', jueves: 'Jueves', viernes: 'Viernes' };
+
+    // Expandir cada bloque × cada día en un horario individual
+    const horarios = [];
+    sala.disponibilidad.forEach(bloque => {
+        const [hora_inicio, hora_fin] = bloque.bloque.split(' - ');
+        dias.forEach(dia => {
+            horarios.push({
+                dia: diasNombre[dia],
+                hora_inicio: hora_inicio.trim(),
+                hora_finalizacion: hora_fin.trim(),
+                reservada: !bloque[dia]   // true en json = disponible, false = reservado
+            });
+        });
+    });
+
+    const salaTransformada = {
+        id: `S-${sala.numero.toString().padStart(3, '0')}`,
+        nombre: `Sala ${sala.numero}`,
+        piso: sala.piso,
+        capacidad: sala.capacidad,
+        sillas: sala.sillas,
+        pizarra: sala.pizarra,         // "Grande", "Pequeña", "Mediana"
+        multimedia: sala.television !== "No tiene",
+        entorno: sala.vista,
+        horarios
+    };
+
+    return [salaTransformada];
+};
+
+const putReservado = (idSala, horaInicio, dia) => {
+    const idLimpio = idSala.replace('S-', '').replace(/^0+/, '');
+    const json = getJson();
+    const sala = json[idLimpio];
+    if (!sala) return false;
+
+    const diaKey = dia.toLowerCase()
+        .replace('é', 'e').replace('á', 'a'); // "Miércoles" → "miercoles"
+
+    const bloque = sala.disponibilidad.find(d => d.bloque.startsWith(horaInicio));
+    if (bloque) {
+        bloque[diaKey] = false; // marcar como reservado
+    }
+
+    fs.writeFileSync(path.join(__dirname, "data", "salas.json"), JSON.stringify(json, null, 2));
+    return true;
+};
 
 module.exports = {getSalas, getSalaDetalles, putReservado}

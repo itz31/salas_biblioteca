@@ -188,7 +188,8 @@ app.get("/salas/:param?", (request, response) => {
 app.put("/salas/:param?", (request, response) => {
   const id = request.params.param.split(",")[0];
   const hora = request.params.param.split(",")[1];
-  salasModule.putReservado(id, hora)
+  const { dia } = request.body;
+  salasModule.putReservado(id, hora, dia)
   return response.status(200).json({mensaje: "se ha reservado con exito"})
 })
 /**

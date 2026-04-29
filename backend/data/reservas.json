@@ -26,5 +26,12 @@
     "sala": "Laboratorio 3",
     "fecha": "2023-11-03",
     "hora": "14:00 - 15:30"
+  },
+  {
+    "id": "res-1777431469462",
+    "nombreUsuario": "Camila Rojas",
+    "sala": "Sala 9",
+    "fecha": "Martes",
+    "hora": "08:00 - 09:30"
   }
 ]
