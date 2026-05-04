@@ -33,5 +33,12 @@
     "sala": "Sala 9",
     "fecha": "Martes",
     "hora": "08:00 - 09:30"
+  },
+  {
+    "id": "res-1777910805071",
+    "nombreUsuario": "Hola",
+    "sala": "Sala 6",
+    "fecha": "Viernes",
+    "hora": "11:20 - 12:50"
   }
 ]

@@ -238,7 +238,7 @@
         "lunes": true,
         "martes": true,
         "miercoles": true,
-        "jueves": true,
+        "jueves": false,
         "viernes": true
       },
       {
@@ -247,7 +247,7 @@
         "martes": true,
         "miercoles": true,
         "jueves": true,
-        "viernes": true
+        "viernes": false
       },
       {
         "bloque": "16:10 - 17:40",
@@ -272,10 +272,10 @@
       {
         "bloque": "08:00 - 09:30",
         "lunes": false,
-        "martes": true,
-        "miercoles": true,
+        "martes": false,
+        "miercoles": false,
         "jueves": false,
-        "viernes": true
+        "viernes": false
       },
       {
         "bloque": "09:40 - 11:10",
@@ -291,7 +291,7 @@
         "martes": true,
         "miercoles": true,
         "jueves": true,
-        "viernes": true
+        "viernes": false
       },
       {
         "bloque": "14:30 - 16:00",
@@ -428,7 +428,7 @@
       {
         "bloque": "08:00 - 09:30",
         "lunes": false,
-        "martes": true,
+        "martes": false,
         "miercoles": true,
         "jueves": false,
         "viernes": true

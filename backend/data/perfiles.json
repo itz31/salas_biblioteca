@@ -38,6 +38,13 @@
       "correo": "hola@alumnos.ucn.cl",
       "tipo": "estudiante",
       "password": "coloma30"
+    },
+    {
+      "id": "E006",
+      "nombre": "e",
+      "correo": "e@alumnos.ucn.cl",
+      "tipo": "estudiante",
+      "password": "e"
     }
   ],
   "funcionarios": [
