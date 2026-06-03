@@ -2,28 +2,39 @@
 setlocal
 cd /d "%~dp0"
 
-if not exist "node_modules" (
-	echo No se encontraron dependencias instaladas.
-	choice /C YN /M "Deseas instalar las dependencias ahora?"
-	if errorlevel 2 (
-		echo.
-		echo No se instalaron dependencias.
-		echo Ejecuta npm install manualmente antes de usar este archivo.
-		pause
-		exit /b 1
-	)
-	echo Instalando dependencias del proyecto...
-	call npm install
+set "PYTHON=.venv\Scripts\python.exe"
+
+if not exist "%PYTHON%" (
+	echo No se encontro el entorno virtual.
+	echo Creando .venv con Python del sistema...
+	python -m venv .venv
 	if errorlevel 1 (
-		echo.
-		echo No se pudieron instalar las dependencias.
-		echo Revisa tu conexion a internet y ejecuta npm install manualmente.
+		echo No se pudo crear el entorno virtual.
 		pause
 		exit /b 1
 	)
 )
 
-echo Iniciando servidor Salas Biblioteca...
-start "Backend Salas Biblioteca" cmd /k "cd /d ""%~dp0"" && node backend/server.js"
-timeout /t 3 /nobreak >nul
-start "" "http://localhost:3000"
+echo Instalando dependencias de Django si hace falta...
+"%PYTHON%" -m pip install -r requirements.txt
+if errorlevel 1 (
+	echo No se pudieron instalar las dependencias.
+	pause
+	exit /b 1
+)
+
+echo Aplicando migraciones...
+"%PYTHON%" manage.py migrate
+if errorlevel 1 (
+	echo Fallo la migracion de la base de datos.
+	pause
+	exit /b 1
+)
+
+echo Cargando datos iniciales desde los JSON existentes...
+"%PYTHON%" manage.py import_json_data
+
+echo Iniciando servidor Django...
+start "Servidor Django" cmd /k "cd /d ""%~dp0"" && .venv\Scripts\python.exe manage.py runserver"
+timeout /t 4 /nobreak >nul
+start "" "http://127.0.0.1:8000"
