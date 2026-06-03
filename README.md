@@ -1,41 +1,46 @@
 # Sistema de Reservas de Salas de Biblioteca
 
-Proyecto reorganizado para funcionar solo con **Django** y **SQLite**.
+Proyecto reorganizado para funcionar con una arquitectura clara:
+
+- `backend/`: proyecto Django, apps, datos y configuración.
+- `frontend/`: plantillas HTML y assets estáticos.
+- `manage.py`: entrada principal desde la raíz.
+- `datos_iniciales.json`: datos iniciales consolidados para carga rápida.
 
 ## Qué incluye ahora
 
-- Proyecto Django funcional.
-- Base de datos SQLite en `db.sqlite3`.
+- Django 6 con SQLite como backend.
+- Frontend heredado conservado en `frontend/`.
 - Usuario personalizado con login por correo.
-- Modelos para salas, reservas e historial.
-- Panel de administración de Django.
-- Comando para importar los datos antiguos desde los JSON del backend anterior.
-- Inicio rápido en Windows con `iniciar.bat`.
+- Modelos de salas, reservas e historial.
+- Comando de importación de JSON compatible con el nuevo layout.
+- Acceso al panel de admin Django.
 
 ## Estructura actual
 
-- `config/`: configuración principal del proyecto Django.
-- `usuarios/`: modelo de usuario personalizado y comando de importación.
-- `salas/`: modelo de salas.
-- `reservas/`: modelo de reservas e historial.
-- `templates/`: vistas HTML de Django.
-- `backend/data/`: JSON antiguos que sirven como datos iniciales.
+- `backend/config/`: configuración del proyecto Django.
+- `backend/usuarios/`: app de usuario y comando `import_json_data`.
+- `backend/salas/`: app de salas.
+- `backend/reservas/`: app de reservas e historial.
+- `backend/data/`: JSON antiguos de datos iniciales.
+- `frontend/templates/`: plantillas HTML.
+- `frontend/static/`: CSS y JavaScript.
+- `datos_iniciales.json`: seed consolidado en la raíz.
 
 ## Cómo iniciar el proyecto
 
 ### Opción recomendada
 
-Haz doble clic en `iniciar.bat` desde la raíz del proyecto.
+Ejecuta `iniciar.bat` desde la raíz del proyecto.
 
-Ese archivo hace esto:
+El script realiza:
 
-1. Verifica que exista el entorno virtual.
-2. Instala las dependencias de `requirements.txt` si hace falta.
-3. Aplica las migraciones de Django.
-4. Importa los datos iniciales desde `backend/data/*.json`.
-5. Crea la cuenta admin `admin@admin.com` con contraseña `admin`.
-6. Levanta el servidor con `runserver`.
-7. Abre el navegador en `http://127.0.0.1:8000`.
+1. Activación o creación del entorno virtual.
+2. Instalación de dependencias.
+3. Aplicación de migraciones Django.
+4. Importación de datos iniciales.
+5. Inicio del servidor Django.
+6. Apertura del navegador en `http://127.0.0.1:8000`.
 
 ### Opción manual
 
@@ -49,75 +54,61 @@ python manage.py import_json_data
 python manage.py runserver
 ```
 
-Después abre:
+Abre luego:
 
 ```text
 http://127.0.0.1:8000
 ```
 
-## Cómo usar lo que ya está hecho
+## Cómo cargar datos iniciales
 
-### Pantalla principal
+### Importar desde `datos_iniciales.json`
 
-Al abrir el proyecto verás una página simple de inicio generada por Django. Esa página confirma que el proyecto ya está corriendo correctamente.
-
-### Panel de administración
-
-Entra a:
-
-```text
-http://127.0.0.1:8000/admin/
+```bat
+python manage.py import_json_data datos_iniciales.json
 ```
 
-Credenciales del admin:
-
-- Correo: `admin@admin.com`
-- Contraseña: `admin`
-
-Ahí puedes revisar y administrar:
-
-- Usuarios.
-- Salas.
-- Reservas.
-- Historial de reservas.
-
-### Datos iniciales importados
-
-El comando `import_json_data` toma la información que existe en:
-
-- `backend/data/perfiles.json`
-- `backend/data/salas.json`
-- `backend/data/reservas.json`
-- `backend/data/historial.json`
-
-y la pasa al modelo de Django.
-
-## Comando útil
-
-Si quieres recargar los datos antiguos manualmente:
+### Importar desde los archivos antiguos de backend
 
 ```bat
 python manage.py import_json_data
 ```
 
-## Modelo de trabajo recomendado
+El comando leerá automáticamente los JSON en `backend/data/` si no se pasa archivo.
 
-La base ya quedó lista para que el equipo siga así:
+## Usuario administrador
 
-1. Autenticación y roles.
-2. Listado de salas y detalle.
-3. Reservas e historial.
-4. Ajustes de templates o vistas de Django.
+- Correo: `admin@admin.com`
+- Contraseña: `admin`
+
+## Vistas principales
+
+- `/login.html` - página de login/registro.
+- `/mapa.html` - vista principal de salas.
+- `/detalleSalas.html?id=<ID>` - detalle de sala.
+- `/usuario.html` - perfil/usuario.
+- `/admin/` - panel de administración Django.
+
+## Qué falta implementar para el Taller 2
+
+1. Pulir el frontend para que el UI siga el requerimiento exacto del taller.
+2. Completar validaciones de formularios y mensajes de error en reservas.
+3. Probar los flujos de reserva, edición/cancelación y visualización de historial.
+4. Añadir pruebas automáticas para modelos y API si se desea.
+5. Ajustar la experiencia de usuario en caso de errores o reservas inválidas.
 
 ## Archivos clave
 
-- [config/settings.py](config/settings.py): configuración del proyecto.
-- [usuarios/models.py](usuarios/models.py): usuario personalizado.
-- [salas/models.py](salas/models.py): modelo de salas.
-- [reservas/models.py](reservas/models.py): reservas e historial.
-- [usuarios/management/commands/import_json_data.py](usuarios/management/commands/import_json_data.py): importación desde JSON.
-- [iniciar.bat](iniciar.bat): arranque rápido en Windows.
+- `backend/config/settings.py`
+- `backend/usuarios/management/commands/import_json_data.py`
+- `backend/usuarios/models.py`
+- `backend/salas/models.py`
+- `backend/reservas/models.py`
+- `frontend/templates/`
+- `frontend/static/`
+- `datos_iniciales.json`
+- `DOCUMENTACION.md`
 
 ## Nota
 
-El archivo `iniciar.sh` fue eliminado porque ya no corresponde al flujo real del proyecto. El frontend viejo y el backend Node/Express también fueron retirados para dejar solo la versión Django.
+El proyecto está enfocado en mantener solo las carpetas `frontend/` y `backend/` junto a los archivos necesarios en la raíz. El viejo backend Node/Express y los assets no usados fueron removidos para simplificar el repositorio.

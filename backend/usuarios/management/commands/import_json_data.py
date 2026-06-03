@@ -21,7 +21,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        root_dir = Path(__file__).resolve().parents[3]
+        root_dir = Path(__file__).resolve().parents[4]
         archivo_json = options.get('archivo_json')
 
         if archivo_json:
@@ -37,9 +37,7 @@ class Command(BaseCommand):
             self.importar_reservas(data.get('reservas', []))
             self.importar_historial(data.get('historial', []))
         else:
-            legacy_data_dir = root_dir / 'Taller antiguo (sin django y eso eliminar dsps)' / 'salas_biblioteca-main' / 'backend' / 'data'
-            current_data_dir = root_dir / 'backend' / 'data'
-            data_dir = legacy_data_dir if legacy_data_dir.exists() else current_data_dir
+            data_dir = root_dir / 'backend' / 'data'
 
             self.importar_usuarios(data_dir / 'perfiles.json')
             self.importar_salas(data_dir / 'salas.json')

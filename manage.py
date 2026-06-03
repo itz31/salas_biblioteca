@@ -2,9 +2,14 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from pathlib import Path
 
 
 def main():
+    current_dir = Path(__file__).resolve().parent
+    backend_dir = current_dir / 'backend'
+    if str(backend_dir) not in sys.path:
+        sys.path.insert(0, str(backend_dir))
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
     try:
