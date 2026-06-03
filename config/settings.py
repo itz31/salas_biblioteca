@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-rm7^17k))ql89*efwic*2!wnc-%+6ue52tdm=n1rx%f3u-8xe!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'testserver']
 
 
 # Application definition
@@ -117,9 +117,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static'] if (BASE_DIR / 'static').exists() else []
 
 AUTH_USER_MODEL = 'usuarios.Usuario'
+LOGIN_URL = '/auth/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/auth/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

@@ -17,13 +17,14 @@
   <main>
     <span class="tag">Django base lista</span>
     <h1>Sistema de reservas de salas</h1>
-    <p>Proyecto inicial con usuarios, salas, reservas e historial. La base ya queda preparada para seguir desarrollando autenticacion, vistas y API.</p>
+    <p>Proyecto inicial con usuarios, salas, reservas e historial.</p>
+    <p>Usuario activo: <strong>{{ request.user.correo }}</strong></p>
     <div class="grid">
       <div class="card"><strong>Usuario</strong><p>Login por correo y tipo de usuario.</p></div>
       <div class="card"><strong>Sala</strong><p>Codigo, piso, capacidad y equipamiento.</p></div>
       <div class="card"><strong>Reserva</strong><p>Fecha, horario, estado e historial.</p></div>
     </div>
-    <p style="margin-top: 24px;"><a href="/admin/">Ir al admin</a></p>
+    <p style="margin-top: 24px;"><a href="/admin/">Ir al admin</a> | <a href="{% url 'logout_view' %}">Cerrar sesión</a></p>
   </main>
 </body>
 </html>

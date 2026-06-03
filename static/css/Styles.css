@@ -1,0 +1,29 @@
+:root {
+  --azul-ucn: #1e3a8a;
+}
+
+.btn-confirmar {
+  background-color: #1e3a8a;
+  color: white;
+  padding: 0.625rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.btn-confirmar:hover {
+  background-color: #1d4ed8;
+}
+
+.detail-label {
+  color: #6b7280;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+
+.hidden {
+  display: none !important;
+}

@@ -10,6 +10,7 @@ class Reserva(models.Model):
 		CANCELADA = 'cancelada', 'Cancelada'
 		FINALIZADA = 'finalizada', 'Finalizada'
 
+	external_id = models.CharField(max_length=50, unique=True, null=True, blank=True)
 	usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reservas')
 	sala = models.ForeignKey(Sala, on_delete=models.CASCADE, related_name='reservas')
 	fecha = models.DateField()

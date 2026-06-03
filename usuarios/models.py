@@ -27,6 +27,9 @@ class UsuarioManager(UserManager):
 
 		return self.create_user(correo, password, **extra_fields)
 
+	def get_by_natural_key(self, correo):
+		return self.get(correo=correo)
+
 
 class Usuario(AbstractUser):
 	class TipoUsuario(models.TextChoices):

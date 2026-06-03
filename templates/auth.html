@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acceso - Sistema de Reservas</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: linear-gradient(135deg, #eff6ff, #f8fafc); color: #1f2937; }
+    main { max-width: 1040px; margin: 40px auto; padding: 24px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .panel { background: white; border-radius: 20px; padding: 24px; box-shadow: 0 20px 60px rgba(15, 23, 42, 0.12); }
+    h1 { margin-top: 0; }
+    label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    input, select { width: 100%; box-sizing: border-box; padding: 12px 14px; border: 1px solid #cbd5e1; border-radius: 12px; margin-bottom: 14px; }
+    button { width: 100%; border: 0; border-radius: 12px; padding: 12px 14px; background: #1d4ed8; color: white; font-weight: 700; cursor: pointer; }
+    .muted { color: #64748b; font-size: 14px; }
+    .error { background: #fee2e2; color: #991b1b; padding: 12px 14px; border-radius: 12px; margin-bottom: 14px; }
+    .hint { background: #eff6ff; border: 1px solid #bfdbfe; padding: 14px; border-radius: 12px; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="grid">
+      <section class="panel">
+        <h1>Ingresar</h1>
+        <p class="muted">Usa la cuenta admin o un usuario importado desde los JSON.</p>
+        {% if error %}
+          <div class="error">{{ error }}</div>
+        {% endif %}
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="action" value="login">
+          <label for="correo_login">Correo</label>
+          <input id="correo_login" name="correo" type="email" placeholder="admin@admin.com" required>
+          <label for="password_login">Contraseña</label>
+          <input id="password_login" name="password" type="password" placeholder="********" required>
+          <button type="submit">Entrar</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h1>Registrarse</h1>
+        <p class="muted">Crea un usuario nuevo con correo institucional.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="action" value="register">
+          <label for="nombre">Nombre</label>
+          <input id="nombre" name="nombre" type="text" placeholder="Nombre y apellido" required>
+          <label for="correo_register">Correo</label>
+          <input id="correo_register" name="correo" type="email" placeholder="usuario@alumnos.ucn.cl" required>
+          <label for="password_register">Contraseña</label>
+          <input id="password_register" name="password" type="password" placeholder="********" required>
+          <label for="tipo_usuario">Tipo</label>
+          <select id="tipo_usuario" name="tipo_usuario">
+            <option value="estudiante">Estudiante</option>
+            <option value="funcionario">Funcionario</option>
+          </select>
+          <button type="submit">Crear cuenta</button>
+        </form>
+        <div class="hint" style="margin-top: 14px;">
+          <strong>Admin listo:</strong><br>
+          admin@admin.com / admin
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

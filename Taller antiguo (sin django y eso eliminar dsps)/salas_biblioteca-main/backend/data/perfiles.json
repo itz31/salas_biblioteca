@@ -1,0 +1,66 @@
+{
+  "reglasClasificacion": {
+    "estudiante": "@alumnos.ucn.cl",
+    "funcionario": "@funcionario.ucn.cl"
+  },
+  "estudiantes": [
+    {
+      "id": "E001",
+      "nombre": "Camila Rojas",
+      "correo": "camila.rojas@alumnos.ucn.cl",
+      "tipo": "estudiante",
+      "password": "Camila123"
+    },
+    {
+      "id": "E002",
+      "nombre": "Matias Araya",
+      "correo": "matias.araya@alumnos.ucn.cl",
+      "tipo": "estudiante",
+      "password": "Matias123"
+    },
+    {
+      "id": "E003",
+      "nombre": "Prueba Copilot",
+      "correo": "prueba.copilot@alumnos.ucn.cl",
+      "tipo": "estudiante",
+      "password": "Clave123"
+    },
+    {
+      "id": "E004",
+      "nombre": "edison olivares",
+      "correo": "edison.olivares@alumnos.ucn.cl",
+      "tipo": "estudiante",
+      "password": "1664"
+    },
+    {
+      "id": "E005",
+      "nombre": "Hola",
+      "correo": "hola@alumnos.ucn.cl",
+      "tipo": "estudiante",
+      "password": "coloma30"
+    },
+    {
+      "id": "E006",
+      "nombre": "e",
+      "correo": "e@alumnos.ucn.cl",
+      "tipo": "estudiante",
+      "password": "e"
+    }
+  ],
+  "funcionarios": [
+    {
+      "id": "F001",
+      "nombre": "Paula Muñoz",
+      "correo": "paula.munoz@funcionario.ucn.cl",
+      "tipo": "funcionario",
+      "password": "Paula123"
+    },
+    {
+      "id": "F002",
+      "nombre": "Ricardo Diaz",
+      "correo": "ricardo.diaz@funcionario.ucn.cl",
+      "tipo": "funcionario",
+      "password": "Ricardo123"
+    }
+  ]
+}
