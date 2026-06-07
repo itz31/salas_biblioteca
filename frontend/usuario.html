@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagina Usuario</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style type="text/tailwindcss">
+    @import url('/static/css/Styles.css');
+  </style>
+</head>
+
+<body class="bg-slate-100 p-2 md:p-6 min-h-screen font-sans">
+    <main class="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl overflow-hidden grid grid-cols-1">
+      <header class="bg-blue-900 p-6 text-white flex flex-wrap justify-between items-center gap-4">
+        <div class="flex items-center gap-4">
+          <div class="w-16 h-16 bg-slate-300 rounded-full flex items-center justify-center overflow-hidden border-2 border-white">
+             <!-- Placeholder para avatar -->
+            <svg class="w-10 h-10 text-slate-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+          </div>
+          <hgroup>
+            <h1 id="Usuario h1" class="text-2xl font-bold">Cargando nombre usuario...</h1>
+            <h2 id="Usuario cargo" class="text-sm opacity-75 uppercase tracking-wider font-semibold">Cargo: ...</h2>
+          </hgroup>
+        </div>
+        <a href= "/mapa/" class="text-sm bg-blue-800 hover:bg-blue-700 px-4 py-2 rounded-lg transition">Volver al Mapa</a>
+      </header>
+
+      <section class="p-6 md:p-10 bg-slate-50 grid grid-cols-1 gap-8">
+        <!-- Reservas Activas -->
+        <article class="bg-white border border-slate-200 rounded-xl shadow-md p-6">
+          <h2 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Reservas Activas</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-slate-100 text-slate-600 text-sm uppercase tracking-wider">
+                  <th class="p-3 font-semibold rounded-tl-lg">Sala</th>
+                  <th class="p-3 font-semibold">Fecha</th>
+                  <th class="p-3 font-semibold">Hora</th>
+                  <th class="p-3 font-semibold rounded-tr-lg">Acción</th>
+                </tr>
+              </thead>
+              <tbody id="reservas-body">
+                <tr>
+                  <td colspan="4" class="p-4 text-center text-slate-500">cargando...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <!-- Historial -->
+        <article id="historial-div" class="bg-white border border-slate-200 rounded-xl shadow-md p-6">
+          <h2 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Historial de Reservas</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-slate-100 text-slate-600 text-sm uppercase tracking-wider">
+                  <th class="p-3 font-semibold rounded-tl-lg">Sala</th>
+                  <th class="p-3 font-semibold">Fecha</th>
+                  <th class="p-3 font-semibold rounded-tr-lg">Hora</th>
+                </tr>
+              </thead>
+              <tbody id="historial-body">
+                <tr>
+                  <td colspan="3" class="p-4 text-center text-slate-500">cargando...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+    </main>
+
+  <script src = "/static/js/usuario.js" ></script>
+</body>
+</html>

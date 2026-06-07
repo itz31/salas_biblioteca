@@ -1,0 +1,15 @@
+@layer base {
+  :root {
+    --azul-ucn: #1e3a8a;
+  }
+}
+
+@layer components {
+  .btn-confirmar {
+    @apply bg-blue-900 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-800 transition-all shadow-md text-sm;
+  }
+
+  .detail-label {
+    @apply text-gray-500 font-semibold uppercase text-[10px] tracking-widest;
+  }
+}

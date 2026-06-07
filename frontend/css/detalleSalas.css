@@ -1,0 +1,13 @@
+@layer components {
+  .slot-btn {
+    @apply w-full h-full p-2;
+  }
+
+  .slot-disponible {
+    @apply bg-green-100 text-green-700 rounded-lg border-2 border-green-200 hover:bg-green-200 transition-colors;
+  }
+
+  .slot-ocupado {
+    @apply bg-red-100 text-red-500 rounded-lg border-2 border-red-200 opacity-50 cursor-not-allowed;
+  }
+}
