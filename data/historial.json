@@ -1,0 +1,86 @@
+[
+  {
+    "id": "hist-001",
+    "nombreUsuario": "Juan Perez",
+    "sala": "Sala de Estudio 2",
+    "fecha": "2023-10-25",
+    "hora": "08:30 - 10:00"
+  },
+  {
+    "id": "res-100",
+    "nombreUsuario": "Hola",
+    "sala": "Sala de Estudio 1",
+    "fecha": "2023-11-01",
+    "hora": "10:00 - 11:30"
+  },
+  {
+    "id": "hist-002",
+    "nombreUsuario": "Maria Garcia",
+    "sala": "Auditorio B",
+    "fecha": "2023-10-26",
+    "hora": "15:00 - 16:30"
+  },
+  {
+    "id": "hist-003",
+    "nombreUsuario": "Admin",
+    "sala": "Sala de Lectura",
+    "fecha": "2023-10-27",
+    "hora": "11:00 - 12:30"
+  },
+  {
+    "id": "res-1777431469462",
+    "nombreUsuario": "Camila Rojas",
+    "sala": "Sala 9",
+    "fecha": "Martes",
+    "hora": "08:00 - 09:30"
+  },
+  {
+    "id": "res-1777910790018",
+    "nombreUsuario": "Hola",
+    "sala": "Sala 9",
+    "fecha": "Martes",
+    "hora": "08:00 - 09:30"
+  },
+  {
+    "id": "res-1777910805071",
+    "nombreUsuario": "Hola",
+    "sala": "Sala 6",
+    "fecha": "Viernes",
+    "hora": "11:20 - 12:50"
+  },
+  {
+    "id": "res-1777912014370",
+    "nombreUsuario": "e",
+    "sala": "Sala 5",
+    "fecha": "Viernes",
+    "hora": "14:30 - 16:00"
+  },
+  {
+    "id": "res-1777912017142",
+    "nombreUsuario": "e",
+    "sala": "Sala 5",
+    "fecha": "Jueves",
+    "hora": "11:20 - 12:50"
+  },
+  {
+    "id": "res-1777912031526",
+    "nombreUsuario": "e",
+    "sala": "Sala 6",
+    "fecha": "Martes",
+    "hora": "08:00 - 09:30"
+  },
+  {
+    "id": "res-1777912034582",
+    "nombreUsuario": "e",
+    "sala": "Sala 6",
+    "fecha": "Miércoles",
+    "hora": "08:00 - 09:30"
+  },
+  {
+    "id": "res-1777912037731",
+    "nombreUsuario": "e",
+    "sala": "Sala 6",
+    "fecha": "Viernes",
+    "hora": "08:00 - 09:30"
+  }
+]

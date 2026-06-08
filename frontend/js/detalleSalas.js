@@ -1,134 +1,114 @@
-(async function() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const idSala = urlParams.get('id');
-  let nombreSalaGlobal = "";
+(async function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const idSala = urlParams.get('id');
 
-  if (!idSala) {
-    const titulo = document.getElementById('sala-titulo');
-    if (titulo) titulo.textContent = "Error: Sala no especificada";
-      return;
+    if (!idSala) {
+        const titulo = document.getElementById('sala-titulo');
+        if (titulo) titulo.textContent = 'Error: Sala no especificada';
+        return;
     }
 
-  const cargarPerfil = () => JSON.parse(localStorage.getItem('perfilActivo'));
+    const cargarPerfil = () => JSON.parse(localStorage.getItem('perfilActivo'));
 
-  async function cargarDetalles() {
+    async function cargarDetalles() {
         try {
-            const respuesta = await fetch(`/salas/${idSala}`);
-            const datos = await respuesta.json();
+            const respuesta = await fetch(`/api/salas/${idSala}/`);
+            if (!respuesta.ok) throw new Error('Sala no encontrada');
+            const sala = await respuesta.json();
 
-            if (datos && datos.length > 0) {
-                const sala = datos[0];
-                nombreSalaGlobal = sala.nombre;
+            document.getElementById('sala-titulo').textContent = `Sala ${sala.numero}`;
+            document.getElementById('sala-piso').textContent = `Piso ${sala.piso}`;
+            document.getElementById('info-capacidad').textContent = `${sala.capacidad} personas`;
+            document.getElementById('info-sillas').textContent = sala.sillas;
+            document.getElementById('info-pizarra').textContent = sala.pizarra;
+            document.getElementById('info-tv').textContent = sala.television;
+            document.getElementById('info-vista').textContent = sala.vista;
 
-                // Actualizar interfaz
-                document.getElementById('sala-titulo').textContent = sala.nombre;
-                document.getElementById('sala-piso').textContent = `Piso ${sala.piso}`;
-                document.getElementById('info-capacidad').textContent = `${sala.capacidad} personas`;
-                document.getElementById('info-sillas').textContent = sala.sillas;
-                document.getElementById('info-pizarra').textContent = sala.pizarra;
-                document.getElementById('info-tv').textContent = sala.multimedia ? "Sí" : "No";
-                document.getElementById('info-vista').textContent = sala.entorno;
-
-                renderizarTabla(sala.horarios);
-            } else {
-                document.getElementById('sala-titulo').textContent = "Sala no encontrada";
-            }
+            renderizarTabla(sala.disponibilidades || []);
         } catch (error) {
-            console.error("Error al cargar los detalles:", error);
-            document.getElementById('sala-titulo').textContent = "Error al conectar con el servidor";
+            console.error('Error al cargar los detalles:', error);
+            document.getElementById('sala-titulo').textContent = 'Error al conectar con el servidor';
         }
     }
 
-    function renderizarTabla(horarios) {
+    function renderizarTabla(disponibilidades) {
         const tbody = document.getElementById('tabla-body');
         tbody.innerHTML = '';
 
-        if (horarios && horarios.length > 0) {
-            horarios.forEach(horario => {
-                const tr = document.createElement('tr');
-                tr.className = 'border-b border-slate-100 hover:bg-slate-50 transition';
-
-                tr.innerHTML = `
-                    <td class="p-3">${horario.dia}</td>
-                    <td class="p-3">${horario.hora_inicio}</td>
-                    <td class="p-3">${horario.hora_finalizacion}</td>
-                    <td class="p-3 font-bold ${horario.reservada ? 'text-red-600' : 'text-green-600'}">
-                        ${horario.reservada ? 'Reservada' : 'Disponible'}
-                    </td>
-                    <td class="p-3" id="btn-container-${horario.hora_inicio.replace(':', '')}"></td>
-                `;
-
-                tbody.appendChild(tr);
-
-                // Agregar botón o texto de disponibilidad
-                const tdAccion = tr.querySelector(`#btn-container-${horario.hora_inicio.replace(':', '')}`);
-                if (horario.reservada) {
-                    const spanOcupado = document.createElement('span');
-                    spanOcupado.className = "text-slate-400 text-xs italic";
-                    spanOcupado.textContent = "No disponible";
-                    tdAccion.appendChild(spanOcupado);
-                } else {
-                    const btnReservar = document.createElement('button');
-                    btnReservar.textContent = 'Reservar';
-                    btnReservar.className = 'bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded text-sm font-semibold transition shadow-sm';
-                    btnReservar.onclick = () => hacerReserva(horario);
-                    tdAccion.appendChild(btnReservar);
-                }
-            });
-        } else {
-            tbody.innerHTML = '<tr><td colspan="5" class="p-4 text-slate-500">No hay horarios registrados.</td></tr>';
+        if (!disponibilidades.length) {
+            tbody.innerHTML = '<tr><td colspan="4" class="p-4 text-slate-500">No hay horarios registrados.</td></tr>';
+            return;
         }
+
+        disponibilidades.forEach(disp => {
+            const tr = document.createElement('tr');
+            tr.className = 'border-b border-slate-100 hover:bg-slate-50 transition';
+
+            const [horaInicio, horaFin] = disp.bloque.split(' - ');
+
+            tr.innerHTML = `
+                <td class="p-3">${disp.dia}</td>
+                <td class="p-3">${horaInicio || disp.bloque}</td>
+                <td class="p-3">${horaFin || ''}</td>
+                <td class="p-3 font-bold ${disp.disponible ? 'text-green-600' : 'text-red-600'}">
+                    ${disp.disponible ? 'Disponible' : 'Reservada'}
+                </td>
+                <td class="p-3" id="btn-${disp.id}"></td>
+            `;
+            tbody.appendChild(tr);
+
+            const tdAccion = document.getElementById(`btn-${disp.id}`);
+            if (!disp.disponible) {
+                const span = document.createElement('span');
+                span.className = 'text-slate-400 text-xs italic';
+                span.textContent = 'No disponible';
+                tdAccion.appendChild(span);
+            } else {
+                const btn = document.createElement('button');
+                btn.textContent = 'Reservar';
+                btn.className = 'bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded text-sm font-semibold transition shadow-sm';
+                btn.onclick = () => hacerReserva(disp);
+                tdAccion.appendChild(btn);
+            }
+        });
     }
 
-    async function hacerReserva(horario) {
+    async function hacerReserva(disp) {
         const perfil = cargarPerfil();
         if (!perfil) {
-            alert("Debes iniciar sesión para reservar.");
-            window.location.href = "login.html";
+            alert('Debes iniciar sesión para reservar.');
+            window.location.href = '/login/';
             return;
         }
 
-        if (!confirm(`¿Confirmas la reserva para el ${horario.dia} de ${horario.hora_inicio} a ${horario.hora_finalizacion}?`)) {
-            return;
-        }
+        const [horaInicio, horaFin] = disp.bloque.split(' - ');
+        if (!confirm(`¿Confirmas la reserva para el ${disp.dia} de ${horaInicio} a ${horaFin}?`)) return;
 
         try {
-            // 1. Marcar como reservado en el servidor
-            const putRespuesta = await fetch(`/salas/${idSala},${horario.hora_inicio}`, {
-              method: 'PUT',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ dia: horario.dia })
-});
-
-            if (!putRespuesta.ok) throw new Error("Error al actualizar la disponibilidad de la sala");
-
-            // 2. Crear el registro de la reserva
-            const nuevaReserva = {
-                id: "res-" + Date.now(),
-                nombreUsuario: perfil.nombre,
-                sala: nombreSalaGlobal,
-                fecha: horario.dia,
-                hora: `${horario.hora_inicio} - ${horario.hora_finalizacion}`
-            };
-
-            const postRespuesta = await fetch("/reservas", {
+            const respuesta = await fetch('/api/reservas/', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(nuevaReserva)
+                body: JSON.stringify({
+                    usuario: perfil.id_usuario,
+                    sala: idSala,
+                    disponibilidad: disp.id,
+                    fecha: new Date().toISOString().split('T')[0],
+                    hora: disp.bloque,
+                }),
             });
 
-            if (!postRespuesta.ok) throw new Error("Error al registrar la reserva en tu perfil");
+            if (!respuesta.ok) {
+                const err = await respuesta.json();
+                throw new Error(JSON.stringify(err));
+            }
 
-            alert("¡Reserva realizada con éxito!");
-            cargarDetalles(); 
-
+            alert('¡Reserva realizada con éxito!');
+            cargarDetalles();
         } catch (error) {
-            console.error("Error al reservar:", error);
-            alert("Hubo un problema al procesar tu reserva.");
+            console.error('Error al reservar:', error);
+            alert('Hubo un problema al procesar tu reserva.');
         }
     }
 
-    // Inicializar la carga de datos
     cargarDetalles();
-
 })();
