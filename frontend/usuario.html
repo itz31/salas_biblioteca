@@ -19,11 +19,14 @@
             <svg class="w-10 h-10 text-slate-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
           </div>
           <hgroup>
-            <h1 id="Usuario h1" class="text-2xl font-bold">Cargando nombre usuario...</h1>
-            <h2 id="Usuario cargo" class="text-sm opacity-75 uppercase tracking-wider font-semibold">Cargo: ...</h2>
+            <h1 id="usuario-h1" class="text-2xl font-bold">Cargando nombre usuario...</h1>
+            <h2 id="usuario-cargo" class="text-sm opacity-75 uppercase tracking-wider font-semibold">Cargo: ...</h2>
           </hgroup>
         </div>
-        <a href= "/mapa/" class="text-sm bg-blue-800 hover:bg-blue-700 px-4 py-2 rounded-lg transition">Volver al Mapa</a>
+        <div class="flex flex-wrap gap-3">
+          <a href="/mapa/" class="text-sm bg-blue-800 hover:bg-blue-700 px-4 py-2 rounded-lg transition">Volver al Mapa</a>
+          <a id="dashboard-btn" href="/admin/" class="hidden text-sm bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg transition">Dashboard</a>
+        </div>
       </header>
 
       <section class="p-6 md:p-10 bg-slate-50 grid grid-cols-1 gap-8">
@@ -72,6 +75,6 @@
       </section>
     </main>
 
-  <script src = "/static/js/usuario.js" ></script>
+  <script src="/static/js/usuario.js?v=2"></script>
 </body>
 </html>

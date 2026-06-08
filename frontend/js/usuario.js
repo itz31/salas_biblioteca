@@ -1,5 +1,14 @@
  (function () {
-    const cargarPerfil = () => JSON.parse(localStorage.getItem('perfilActivo'));
+    const cargarPerfil = () => {
+      try {
+        const json = localStorage.getItem('perfilActivo');
+        return json ? JSON.parse(json) : null;
+      } catch (error) {
+        console.warn('Perfil activo inválido en localStorage:', error);
+        localStorage.removeItem('perfilActivo');
+        return null;
+      }
+    };
 
     const perfil = cargarPerfil();
     if (!perfil) {
@@ -7,8 +16,18 @@
       return;
     }
 
-    document.getElementById('Usuario h1').textContent = perfil.nombre;
-    document.getElementById('Usuario cargo').textContent = `Cargo: ${perfil.tipo}`;
+    const nombreElemento = document.getElementById('usuario-h1');
+    const cargoElemento = document.getElementById('usuario-cargo');
+    if (nombreElemento) nombreElemento.textContent = perfil.nombre || 'Usuario';
+    if (cargoElemento) cargoElemento.textContent = `Cargo: ${perfil.tipo || '---'}`;
+
+    const dashboardBtn = document.getElementById('dashboard-btn');
+    const esAdminApp = perfil.id_usuario === 'ADM001' || (perfil.correo && perfil.correo.toLowerCase() === 'admin@admin.com');
+    if (esAdminApp && dashboardBtn) {
+      dashboardBtn.classList.remove('hidden');
+      dashboardBtn.style.display = 'inline-flex';
+      dashboardBtn.setAttribute('href', '/admin/');
+    }
 
     async function cargarReservas() {
       const tbody = document.getElementById('reservas-body');
